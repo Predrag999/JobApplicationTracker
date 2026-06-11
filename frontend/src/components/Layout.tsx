@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { LayoutDashboard, ListTodo, PlusCircle, Briefcase } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import ThemeToggle from '@/components/ThemeToggle'
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
@@ -36,6 +37,9 @@ export default function Layout() {
             </NavLink>
           ))}
         </nav>
+        <div className="px-3 py-4 border-t">
+          <ThemeToggle />
+        </div>
       </aside>
       <main className="flex-1 overflow-auto">
         <Outlet />
