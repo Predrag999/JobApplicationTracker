@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "PowerShell(mvn *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "PowerShell(java *)",
+      "PowerShell(netstat *)"
     ]
   }
 }
