@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(mvn *)"
+      "PowerShell(mvn *)",
+      "Bash(npx tsc *)"
     ]
   }
 }
