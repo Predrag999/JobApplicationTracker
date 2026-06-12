@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { LayoutDashboard, ListTodo, PlusCircle, Briefcase } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -7,14 +8,15 @@ import SearchModal from '@/components/SearchModal'
 import SettingsModal from '@/components/SettingsModal'
 import { useModal } from '@/context/ModalContext'
 
-const navItems = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/applications', label: 'Applications', icon: ListTodo, end: false },
-  { to: '/applications/new', label: 'Add New', icon: PlusCircle, end: true },
-]
-
 export default function Layout() {
+  const { t } = useTranslation()
   const { isSearchOpen, openSearch, closeSearch } = useModal()
+
+  const navItems = [
+    { to: '/', label: t('nav.dashboard'), icon: LayoutDashboard, end: true },
+    { to: '/applications', label: t('nav.applications'), icon: ListTodo, end: false },
+    { to: '/applications/new', label: t('nav.addNew'), icon: PlusCircle, end: true },
+  ]
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -32,7 +34,7 @@ export default function Layout() {
       <aside className="w-60 shrink-0 border-r bg-card flex flex-col">
         <div className="flex items-center gap-2 px-6 py-5 border-b">
           <Briefcase className="h-5 w-5 text-primary" />
-          <span className="font-semibold text-sm">Job Tracker</span>
+          <span className="font-semibold text-sm">{t('nav.brand')}</span>
         </div>
         <nav className="flex-1 px-3 py-4 space-y-1">
           {navItems.map(({ to, label, icon: Icon, end }) => (

@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { ArrowLeft, Pencil, Trash2, ExternalLink, Paperclip, StickyNote, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
@@ -14,6 +15,7 @@ import { useForm } from 'react-hook-form'
 export default function ApplicationDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const { data: app, isLoading } = useApplication(id!)
   const { data: notes } = useNotes(id!)
@@ -22,16 +24,16 @@ export default function ApplicationDetail() {
   const deleteApp = useDeleteApplication()
 
   function handleDeleteApp() {
-    if (confirm('Delete this application and all its notes and files?')) {
+    if (confirm(t('detail.deleteConfirm'))) {
       deleteApp.mutate(id!, { onSuccess: () => navigate('/applications') })
     }
   }
 
   if (isLoading) {
-    return <div className="p-6 text-muted-foreground text-sm">Loading...</div>
+    return <div className="p-6 text-muted-foreground text-sm">{t('detail.loading')}</div>
   }
   if (!app) {
-    return <div className="p-6 text-muted-foreground text-sm">Application not found.</div>
+    return <div className="p-6 text-muted-foreground text-sm">{t('detail.notFound')}</div>
   }
 
   return (
@@ -64,7 +66,7 @@ export default function ApplicationDetail() {
           <Button variant="outline" size="sm" asChild>
             <Link to={`/applications/${id}/edit`}>
               <Pencil className="mr-1 h-3 w-3" />
-              Edit
+              {t('detail.edit')}
             </Link>
           </Button>
           <Button
@@ -75,7 +77,7 @@ export default function ApplicationDetail() {
             disabled={deleteApp.isPending}
           >
             <Trash2 className="mr-1 h-3 w-3" />
-            Delete
+            {t('detail.delete')}
           </Button>
         </div>
       </div>
@@ -83,10 +85,10 @@ export default function ApplicationDetail() {
       {/* Details */}
       <Card>
         <CardContent className="pt-6 grid grid-cols-2 gap-4 text-sm">
-          <Detail label="Applied" value={app.appliedDate} />
-          <Detail label="Deadline" value={app.deadlineDate ?? '—'} />
-          <Detail label="Added" value={new Date(app.createdAt).toLocaleDateString()} />
-          <Detail label="Updated" value={new Date(app.updatedAt).toLocaleDateString()} />
+          <Detail label={t('detail.applied')} value={app.appliedDate} />
+          <Detail label={t('detail.deadline')} value={app.deadlineDate ?? '—'} />
+          <Detail label={t('detail.added')} value={new Date(app.createdAt).toLocaleDateString()} />
+          <Detail label={t('detail.updated')} value={new Date(app.updatedAt).toLocaleDateString()} />
         </CardContent>
       </Card>
 
@@ -95,13 +97,13 @@ export default function ApplicationDetail() {
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">
             <StickyNote className="h-4 w-4" />
-            Notes
+            {t('detail.notes')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <AddNoteForm applicationId={id!} />
           {!notes?.length ? (
-            <p className="text-sm text-muted-foreground">No notes yet.</p>
+            <p className="text-sm text-muted-foreground">{t('detail.noNotes')}</p>
           ) : (
             <ul className="space-y-3">
               {notes.map((note) => (
@@ -123,13 +125,13 @@ export default function ApplicationDetail() {
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">
             <Paperclip className="h-4 w-4" />
-            Attachments
+            {t('detail.attachments')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <UploadButton applicationId={id!} />
           {!attachments?.length ? (
-            <p className="text-sm text-muted-foreground">No files attached.</p>
+            <p className="text-sm text-muted-foreground">{t('detail.noFiles')}</p>
           ) : (
             <ul className="space-y-2">
               {attachments.map((a) => (
@@ -159,6 +161,7 @@ function Detail({ label, value }: { label: string; value: string }) {
 }
 
 function AddNoteForm({ applicationId }: { applicationId: string }) {
+  const { t } = useTranslation()
   const createNote = useCreateNote(applicationId)
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm<{ content: string }>()
 
@@ -172,11 +175,11 @@ function AddNoteForm({ applicationId }: { applicationId: string }) {
     <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2">
       <Textarea
         {...register('content')}
-        placeholder="Add a note..."
+        placeholder={t('detail.addNotePlaceholder')}
         className="min-h-[60px] resize-none"
       />
       <Button type="submit" disabled={isSubmitting} className="shrink-0 self-end">
-        Add
+        {t('detail.add')}
       </Button>
     </form>
   )
@@ -216,6 +219,7 @@ function NoteItem({
 }
 
 function UploadButton({ applicationId }: { applicationId: string }) {
+  const { t } = useTranslation()
   const upload = useUploadAttachment(applicationId)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -235,7 +239,7 @@ function UploadButton({ applicationId }: { applicationId: string }) {
         disabled={upload.isPending}
       >
         <Paperclip className="mr-2 h-3.5 w-3.5" />
-        {upload.isPending ? 'Uploading...' : 'Attach File'}
+        {upload.isPending ? t('detail.uploading') : t('detail.attachFile')}
       </Button>
     </>
   )

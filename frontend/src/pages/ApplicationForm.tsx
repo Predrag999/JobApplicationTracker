@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -15,14 +16,14 @@ import {
 } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useApplication, useCreateApplication, useUpdateApplication } from '@/hooks/useApplications'
-import { APPLICATION_STATUSES, STATUS_LABELS } from '@/types'
+import { APPLICATION_STATUSES } from '@/types'
 
 const schema = z.object({
-  companyName: z.string().min(1, 'Required'),
-  jobTitle: z.string().min(1, 'Required'),
-  jobUrl: z.string().url('Must be a valid URL').or(z.literal('')).optional(),
+  companyName: z.string().min(1, 'form.error.required'),
+  jobTitle: z.string().min(1, 'form.error.required'),
+  jobUrl: z.string().url('form.error.url').or(z.literal('')).optional(),
   status: z.enum(['APPLIED', 'PHONE_SCREEN', 'INTERVIEW', 'TECHNICAL_TEST', 'OFFER', 'REJECTED', 'WITHDRAWN']),
-  appliedDate: z.string().min(1, 'Required'),
+  appliedDate: z.string().min(1, 'form.error.required'),
   deadlineDate: z.string().optional(),
 })
 
@@ -31,6 +32,7 @@ type FormValues = z.infer<typeof schema>
 export default function ApplicationForm() {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
+  const { t } = useTranslation()
   const isEdit = !!id
 
   const { data: existing } = useApplication(id ?? '')
@@ -82,30 +84,30 @@ export default function ApplicationForm() {
   return (
     <div className="p-6 max-w-2xl">
       <h1 className="text-2xl font-bold mb-6">
-        {isEdit ? 'Edit Application' : 'New Application'}
+        {isEdit ? t('form.editTitle') : t('form.newTitle')}
       </h1>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Application Details</CardTitle>
+          <CardTitle className="text-base">{t('form.cardTitle')}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <Field label="Company *" error={errors.companyName?.message}>
-                <Input {...register('companyName')} placeholder="Acme Corp" />
+              <Field label={t('form.company')} error={errors.companyName?.message}>
+                <Input {...register('companyName')} placeholder={t('form.companyPlaceholder')} />
               </Field>
-              <Field label="Job Title *" error={errors.jobTitle?.message}>
-                <Input {...register('jobTitle')} placeholder="Software Engineer" />
+              <Field label={t('form.jobTitle')} error={errors.jobTitle?.message}>
+                <Input {...register('jobTitle')} placeholder={t('form.rolePlaceholder')} />
               </Field>
             </div>
 
-            <Field label="Job URL" error={errors.jobUrl?.message}>
-              <Input {...register('jobUrl')} placeholder="https://..." type="url" />
+            <Field label={t('form.jobUrl')} error={errors.jobUrl?.message}>
+              <Input {...register('jobUrl')} placeholder={t('form.urlPlaceholder')} type="url" />
             </Field>
 
             <div className="grid grid-cols-2 gap-4">
-              <Field label="Status *" error={errors.status?.message}>
+              <Field label={t('form.status')} error={errors.status?.message}>
                 <Select
                   value={statusValue}
                   onValueChange={(v) => setValue('status', v as FormValues['status'])}
@@ -116,32 +118,32 @@ export default function ApplicationForm() {
                   <SelectContent>
                     {APPLICATION_STATUSES.map((s) => (
                       <SelectItem key={s} value={s}>
-                        {STATUS_LABELS[s]}
+                        {t(`status.${s}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </Field>
 
-              <Field label="Applied Date *" error={errors.appliedDate?.message}>
+              <Field label={t('form.appliedDate')} error={errors.appliedDate?.message}>
                 <Input {...register('appliedDate')} type="date" />
               </Field>
             </div>
 
-            <Field label="Deadline / Interview Date" error={errors.deadlineDate?.message}>
+            <Field label={t('form.deadline')} error={errors.deadlineDate?.message}>
               <Input {...register('deadlineDate')} type="date" />
             </Field>
 
             <div className="flex gap-3 pt-2">
               <Button type="submit" disabled={isSubmitting}>
-                {isEdit ? 'Save Changes' : 'Create Application'}
+                {isEdit ? t('form.submit.save') : t('form.submit.create')}
               </Button>
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => navigate(isEdit ? `/applications/${id}` : '/applications')}
               >
-                Cancel
+                {t('form.cancel')}
               </Button>
             </div>
           </form>
@@ -160,11 +162,12 @@ function Field({
   error?: string
   children: React.ReactNode
 }) {
+  const { t } = useTranslation()
   return (
     <div className="space-y-1.5">
       <Label>{label}</Label>
       {children}
-      {error && <p className="text-xs text-destructive">{error}</p>}
+      {error && <p className="text-xs text-destructive">{t(error)}</p>}
     </div>
   )
 }

@@ -1,5 +1,6 @@
+import { useTranslation } from 'react-i18next'
 import { Badge } from '@/components/ui/badge'
-import { STATUS_LABELS, type ApplicationStatus } from '@/types'
+import { type ApplicationStatus } from '@/types'
 import { cn } from '@/lib/utils'
 
 const STATUS_COLORS: Record<ApplicationStatus, string> = {
@@ -18,12 +19,13 @@ interface StatusBadgeProps {
 }
 
 export default function StatusBadge({ status, className }: StatusBadgeProps) {
+  const { t } = useTranslation()
   return (
     <Badge
       variant="outline"
       className={cn(STATUS_COLORS[status], 'font-medium', className)}
     >
-      {STATUS_LABELS[status]}
+      {t(`status.${status}`)}
     </Badge>
   )
 }

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { PlusCircle, TrendingUp, CheckCircle2, XCircle, Briefcase, Settings } from 'lucide-react'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -6,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { useStats } from '@/hooks/useStats'
 import { useApplications } from '@/hooks/useApplications'
 import StatusBadge from '@/components/StatusBadge'
-import { STATUS_LABELS, type ApplicationStatus } from '@/types'
+import { type ApplicationStatus } from '@/types'
 import { useModal } from '@/context/ModalContext'
 import SearchButton from '@/components/SearchButton'
 
@@ -21,6 +22,7 @@ const PIE_COLORS: Record<ApplicationStatus, string> = {
 }
 
 export default function Dashboard() {
+  const { t } = useTranslation()
   const { data: stats, isLoading: statsLoading } = useStats()
   const { data: recent } = useApplications({ size: 5, sortBy: 'createdAt', sortDir: 'desc' })
   const { openSettings } = useModal()
@@ -30,7 +32,7 @@ export default function Dashboard() {
       ? Object.entries(stats.byStatus)
           .filter(([, count]) => count > 0)
           .map(([status, count]) => ({
-            name: STATUS_LABELS[status as ApplicationStatus],
+            name: t(`status.${status}`),
             value: count,
             color: PIE_COLORS[status as ApplicationStatus],
           }))
@@ -39,16 +41,16 @@ export default function Dashboard() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <h1 className="text-2xl font-bold">{t('dashboard.title')}</h1>
         <div className="flex items-center gap-2">
           <SearchButton />
-          <Button variant="outline" size="icon" onClick={openSettings} title="Settings">
+          <Button variant="outline" size="icon" onClick={openSettings} title={t('settings.title')}>
             <Settings className="h-4 w-4" />
           </Button>
           <Button asChild>
             <Link to="/applications/new">
               <PlusCircle className="mr-2 h-4 w-4" />
-              Add Application
+              {t('dashboard.addApplication')}
             </Link>
           </Button>
         </div>
@@ -57,24 +59,24 @@ export default function Dashboard() {
       {/* Stats cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          title="Total"
+          title={t('dashboard.stats.total')}
           value={statsLoading ? '—' : stats?.total ?? 0}
           icon={<Briefcase className="h-4 w-4 text-muted-foreground" />}
         />
         <StatCard
-          title="Active"
+          title={t('dashboard.stats.active')}
           value={statsLoading ? '—' : stats?.activeCount ?? 0}
           icon={<TrendingUp className="h-4 w-4 text-blue-500" />}
           valueClass="text-blue-600"
         />
         <StatCard
-          title="Offers"
+          title={t('dashboard.stats.offers')}
           value={statsLoading ? '—' : stats?.offerCount ?? 0}
           icon={<CheckCircle2 className="h-4 w-4 text-green-500" />}
           valueClass="text-green-600"
         />
         <StatCard
-          title="Rejected"
+          title={t('dashboard.stats.rejected')}
           value={statsLoading ? '—' : stats?.rejectedCount ?? 0}
           icon={<XCircle className="h-4 w-4 text-red-500" />}
           valueClass="text-red-600"
@@ -85,12 +87,12 @@ export default function Dashboard() {
         {/* Pie chart */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Applications by Status</CardTitle>
+            <CardTitle className="text-base">{t('dashboard.chart.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             {pieData.length === 0 ? (
               <div className="flex items-center justify-center h-48 text-muted-foreground text-sm">
-                No applications yet
+                {t('dashboard.noApplications')}
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={220}>
@@ -111,15 +113,15 @@ export default function Dashboard() {
         {/* Recent applications */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-base">Recent Applications</CardTitle>
+            <CardTitle className="text-base">{t('dashboard.recent.title')}</CardTitle>
             <Button variant="ghost" size="sm" asChild>
-              <Link to="/applications">View all</Link>
+              <Link to="/applications">{t('dashboard.recent.viewAll')}</Link>
             </Button>
           </CardHeader>
           <CardContent>
             {!recent?.content.length ? (
               <div className="flex items-center justify-center h-48 text-muted-foreground text-sm">
-                No applications yet
+                {t('dashboard.noApplications')}
               </div>
             ) : (
               <ul className="space-y-3">

@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Search, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import StatusBadge from '@/components/StatusBadge'
 import { useApplications } from '@/hooks/useApplications'
 import { useModal } from '@/context/ModalContext'
-import { APPLICATION_STATUSES, STATUS_LABELS, type ApplicationStatus } from '@/types'
+import { APPLICATION_STATUSES, type ApplicationStatus } from '@/types'
 import { cn } from '@/lib/utils'
 
 const ALL_FILTERS = ['ALL' as const, ...APPLICATION_STATUSES]
@@ -17,6 +18,7 @@ export default function SearchModal() {
   const [statusFilter, setStatusFilter] = useState<ApplicationStatus | 'ALL'>('ALL')
   const navigate = useNavigate()
   const inputRef = useRef<HTMLInputElement>(null)
+  const { t } = useTranslation()
 
   const { data } = useApplications({
     search: query || undefined,
@@ -61,7 +63,7 @@ export default function SearchModal() {
           <Search className="h-4 w-4 text-muted-foreground shrink-0" />
           <Input
             ref={inputRef}
-            placeholder="Search by company, role..."
+            placeholder={t('search.placeholder')}
             value={query}
             onChange={e => setQuery(e.target.value)}
             className="border-0 shadow-none focus-visible:ring-0 p-0 h-auto text-base bg-transparent"
@@ -84,7 +86,7 @@ export default function SearchModal() {
                   : 'bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground',
               )}
             >
-              {s === 'ALL' ? 'All' : STATUS_LABELS[s]}
+              {s === 'ALL' ? t('search.all') : t(`status.${s}`)}
             </button>
           ))}
         </div>
@@ -93,7 +95,7 @@ export default function SearchModal() {
         <ul className="max-h-72 overflow-y-auto divide-y">
           {!data?.content.length ? (
             <li className="px-4 py-8 text-center text-sm text-muted-foreground">
-              {query ? 'No results found' : 'Start typing to search…'}
+              {query ? t('search.noResults') : t('search.startTyping')}
             </li>
           ) : (
             data.content.map(app => (
@@ -115,8 +117,10 @@ export default function SearchModal() {
 
         {/* Footer hint */}
         <div className="px-4 py-2 border-t text-xs text-muted-foreground flex justify-between">
-          <span>↵ to open · Esc to close</span>
-          {data && <span>{data.totalElements} result{data.totalElements !== 1 ? 's' : ''}</span>}
+          <span>{t('search.footer')}</span>
+          {data && (
+            <span>{t('search.result', { count: data.totalElements })}</span>
+          )}
         </div>
       </div>
     </div>
