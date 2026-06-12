@@ -1,7 +1,11 @@
+import { useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { LayoutDashboard, ListTodo, PlusCircle, Briefcase } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import ThemeToggle from '@/components/ThemeToggle'
+import SearchModal from '@/components/SearchModal'
+import SettingsModal from '@/components/SettingsModal'
+import { useModal } from '@/context/ModalContext'
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
@@ -10,6 +14,19 @@ const navItems = [
 ]
 
 export default function Layout() {
+  const { isSearchOpen, openSearch, closeSearch } = useModal()
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault()
+        isSearchOpen ? closeSearch() : openSearch()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [isSearchOpen, openSearch, closeSearch])
+
   return (
     <div className="flex min-h-screen bg-background">
       <aside className="w-60 shrink-0 border-r bg-card flex flex-col">
@@ -44,6 +61,8 @@ export default function Layout() {
       <main className="flex-1 overflow-auto">
         <Outlet />
       </main>
+      <SearchModal />
+      <SettingsModal />
     </div>
   )
 }

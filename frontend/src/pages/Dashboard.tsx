@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { PlusCircle, TrendingUp, CheckCircle2, XCircle, Briefcase } from 'lucide-react'
+import { PlusCircle, TrendingUp, CheckCircle2, XCircle, Briefcase, Settings } from 'lucide-react'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -7,6 +7,8 @@ import { useStats } from '@/hooks/useStats'
 import { useApplications } from '@/hooks/useApplications'
 import StatusBadge from '@/components/StatusBadge'
 import { STATUS_LABELS, type ApplicationStatus } from '@/types'
+import { useModal } from '@/context/ModalContext'
+import SearchButton from '@/components/SearchButton'
 
 const PIE_COLORS: Record<ApplicationStatus, string> = {
   APPLIED: '#3b82f6',
@@ -21,6 +23,7 @@ const PIE_COLORS: Record<ApplicationStatus, string> = {
 export default function Dashboard() {
   const { data: stats, isLoading: statsLoading } = useStats()
   const { data: recent } = useApplications({ size: 5, sortBy: 'createdAt', sortDir: 'desc' })
+  const { openSettings } = useModal()
 
   const pieData =
     stats
@@ -37,12 +40,18 @@ export default function Dashboard() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Dashboard</h1>
-        <Button asChild>
-          <Link to="/applications/new">
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Add Application
-          </Link>
-        </Button>
+        <div className="flex items-center gap-2">
+          <SearchButton />
+          <Button variant="outline" size="icon" onClick={openSettings} title="Settings">
+            <Settings className="h-4 w-4" />
+          </Button>
+          <Button asChild>
+            <Link to="/applications/new">
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Add Application
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Stats cards */}

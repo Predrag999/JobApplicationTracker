@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { PlusCircle, Search, Trash2, ExternalLink, MessageSquare, Paperclip, AlertCircle, ClipboardList } from 'lucide-react'
+import { PlusCircle, Search, Settings, Trash2, ExternalLink, MessageSquare, Paperclip, AlertCircle, ClipboardList } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -13,9 +13,12 @@ import {
 import StatusBadge from '@/components/StatusBadge'
 import { useApplications, useDeleteApplication } from '@/hooks/useApplications'
 import { APPLICATION_STATUSES, STATUS_LABELS, type ApplicationStatus } from '@/types'
+import { useModal } from '@/context/ModalContext'
+import SearchButton from '@/components/SearchButton'
 
 export default function ApplicationList() {
   const navigate = useNavigate()
+  const { openSettings } = useModal()
   const [search, setSearch] = useState('')
   const [status, setStatus] = useState<ApplicationStatus | 'ALL'>('ALL')
   const [page, setPage] = useState(0)
@@ -41,12 +44,18 @@ export default function ApplicationList() {
       {/* Sticky header */}
       <div className="sticky top-0 z-10 bg-background border-b px-6 py-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Applications</h1>
-        <Button asChild>
-          <Link to="/applications/new">
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Add New
-          </Link>
-        </Button>
+        <div className="flex items-center gap-2">
+          <SearchButton />
+          <Button variant="outline" size="icon" onClick={openSettings} title="Settings">
+            <Settings className="h-4 w-4" />
+          </Button>
+          <Button asChild>
+            <Link to="/applications/new">
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Add New
+            </Link>
+          </Button>
+        </div>
       </div>
 
       <div className="p-6 space-y-4">

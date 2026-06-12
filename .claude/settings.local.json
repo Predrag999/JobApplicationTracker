@@ -4,7 +4,8 @@
       "PowerShell(mvn *)",
       "Bash(npx tsc *)",
       "PowerShell(java *)",
-      "PowerShell(netstat *)"
+      "PowerShell(netstat *)",
+      "PowerShell(npm *)"
     ]
   }
 }
