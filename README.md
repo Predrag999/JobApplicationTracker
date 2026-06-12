@@ -29,6 +29,17 @@ A personal, full-stack web application for tracking job applications through eve
 - Status breakdown pie chart (Recharts)
 - Quick list of the 5 most recently added applications
 
+### Search
+- Global command-palette search accessible from any page via the search bar or **Ctrl+K** / **Cmd+K**
+- Live results as you type — filters by company name or job title
+- Status filter chips inside the search overlay (All, Applied, Interview, Offer, etc.)
+- Click any result to navigate directly to that application
+
+### Settings & Personalization
+- **Theme**: Light / Dark mode toggle — preference persisted in `localStorage`
+- **Language**: Switch the entire UI between English, Deutsch, and Bulgarian — preference persisted in `localStorage`
+- Settings accessible via the gear icon in the page header
+
 ---
 
 ## Tech Stack
@@ -50,6 +61,7 @@ A personal, full-stack web application for tracking job applications through eve
 | Routing | React Router v6 |
 | Forms | React Hook Form + Zod |
 | Charts | Recharts |
+| Internationalization | i18next + react-i18next |
 
 ---
 
@@ -100,11 +112,14 @@ JobApplicationTracker/
     ├── package.json
     ├── vite.config.ts
     ├── tsconfig.json
+    ├── index.html
     ├── components.json                   # Shadcn/UI config
+    ├── public/
+    │   └── favicon.svg                   # Briefcase icon favicon
     └── src/
-        ├── main.tsx                      # Entry point + QueryClientProvider
+        ├── main.tsx                      # Entry point + all providers
         ├── App.tsx                       # Router + Layout
-        ├── index.css                     # Tailwind v4 + CSS variables
+        ├── index.css                     # Tailwind v4 + CSS variables (light + dark)
         ├── types/index.ts                # Shared TypeScript interfaces
         ├── api/                          # fetch-based API client
         │   ├── client.ts
@@ -117,9 +132,23 @@ JobApplicationTracker/
         │   ├── useNotes.ts
         │   ├── useAttachments.ts
         │   └── useStats.ts
+        ├── context/
+        │   ├── ThemeContext.tsx           # Light/dark theme + localStorage
+        │   ├── LanguageContext.tsx        # i18n language selection + localStorage
+        │   └── ModalContext.tsx           # Global open/close state for Search & Settings
+        ├── i18n/
+        │   ├── index.ts                  # i18next initialisation
+        │   └── locales/
+        │       ├── en.ts                 # English translations
+        │       ├── de.ts                 # German translations
+        │       └── bg.ts                 # Bulgarian translations
         ├── components/
-        │   ├── Layout.tsx                # Sidebar nav
+        │   ├── Layout.tsx                # Sidebar nav + Ctrl+K handler
+        │   ├── ThemeToggle.tsx           # Light/dark toggle button (sidebar footer)
         │   ├── StatusBadge.tsx           # Color-coded status pill
+        │   ├── SearchButton.tsx          # Pill-shaped search trigger with Ctrl+K hint
+        │   ├── SearchModal.tsx           # Command-palette search overlay
+        │   ├── SettingsModal.tsx         # Settings overlay (theme + language)
         │   └── ui/                       # Button, Card, Input, Select, Badge, Label, Textarea
         └── pages/
             ├── Dashboard.tsx
@@ -296,6 +325,9 @@ All endpoints are prefixed with `/api`.
 - **File storage**: Files are stored on the local filesystem at `./uploads/` (relative to where the backend process runs). The directory is auto-created on startup.
 - **CORS**: The backend allows `http://localhost:5173` on all `/api/**` routes.
 - **Java records for DTOs**: All request and response DTOs are Java records. Lombok was intentionally removed for compatibility with Java 25.
+- **Theming**: Dark/light mode is implemented via a `.dark` CSS class toggled on `<html>`. The active theme is stored in `localStorage` and read on startup before the first render to avoid flash.
+- **i18n**: All UI strings are managed through `i18next`. Translations live in `src/i18n/locales/`. The active language is stored in `localStorage`. Adding a new language only requires a new locale file and a button in `SettingsModal`.
+- **Modal state**: `ModalContext` holds the open/close state for the Search and Settings overlays so any component can trigger them without prop drilling. The Ctrl+K shortcut is wired in `Layout.tsx`.
 
 ---
 
@@ -325,4 +357,4 @@ All endpoints are prefixed with `/api`.
 - Files are stored on the local filesystem; no cloud storage integration.
 - No email or push notifications for deadlines (deadline date is stored but not acted on).
 - No status history — only the current status is stored.
-- No dark mode (CSS variables are defined and ready; dark theme just needs wiring up).
+- Language support is limited to English, Deutsch, and Bulgarian; adding more requires a new locale file in `src/i18n/locales/`.
