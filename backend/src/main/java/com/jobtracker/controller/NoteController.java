@@ -1,7 +1,9 @@
 package com.jobtracker.controller;
 
 import com.jobtracker.dto.request.CreateNoteRequest;
+import com.jobtracker.dto.response.GeneratedNoteResponse;
 import com.jobtracker.dto.response.NoteResponse;
+import com.jobtracker.service.GenerateNoteService;
 import com.jobtracker.service.NoteService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -16,9 +18,11 @@ import java.util.UUID;
 public class NoteController {
 
     private final NoteService noteService;
+    private final GenerateNoteService generateNoteService;
 
-    public NoteController(NoteService noteService) {
+    public NoteController(NoteService noteService, GenerateNoteService generateNoteService) {
         this.noteService = noteService;
+        this.generateNoteService = generateNoteService;
     }
 
     @GetMapping
@@ -37,5 +41,10 @@ public class NoteController {
                                         @PathVariable UUID noteId) {
         noteService.delete(applicationId, noteId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/generate")
+    public ResponseEntity<GeneratedNoteResponse> generateNote(@PathVariable UUID applicationId) {
+        return ResponseEntity.ok(generateNoteService.generate(applicationId));
     }
 }

@@ -92,3 +92,7 @@ export interface AutofillResponse {
   jobTitle: string
   jobUrl: string
 }
+
+export interface GeneratedNoteResponse {
+  generatedContent: string
+}

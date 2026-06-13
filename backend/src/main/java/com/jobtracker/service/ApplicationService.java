@@ -234,6 +234,30 @@ public class ApplicationService {
         return new String[]{jobTitle, companyName};
     }
 
+    String extractJobDescription(Document doc) {
+        Elements scripts = doc.select("script[type=application/ld+json]");
+        for (Element script : scripts) {
+            try {
+                JsonNode posting = findJobPosting(JSON.readTree(script.data()));
+                if (posting != null && posting.has("description")) {
+                    String d = posting.get("description").asText();
+                    if (!d.isBlank()) return truncate(d, 10000);
+                }
+            } catch (Exception ignored) {}
+        }
+        for (String sel : new String[]{
+                "[itemprop=description]", ".job-description", "#job-description",
+                ".job-body", ".job-details", "article", "main"}) {
+            Element el = doc.selectFirst(sel);
+            if (el != null && !el.text().isBlank()) return truncate(el.text(), 10000);
+        }
+        return truncate(doc.body().text(), 10000);
+    }
+
+    private String truncate(String text, int max) {
+        return text.length() > max ? text.substring(0, max) : text;
+    }
+
     private boolean looksLikeUrl(String text) {
         return text.startsWith("http://") || text.startsWith("https://") || text.startsWith("/");
     }
@@ -279,7 +303,7 @@ public class ApplicationService {
         }
     }
 
-    private boolean isBotProtected(Document doc) {
+    boolean isBotProtected(Document doc) {
         String title = doc.title();
         String html = doc.html();
         boolean titleMatch = title != null && (title.contains("Just a moment") || title.contains("Attention Required") || title.contains("Access denied"));
@@ -290,7 +314,7 @@ public class ApplicationService {
         return titleMatch || cfMatch || dataDomeMatch || genericCaptcha;
     }
 
-    private Document fetchWithPlaywright(String url) throws Exception {
+    Document fetchWithPlaywright(String url) throws Exception {
         try (Playwright pw = Playwright.create()) {
             BrowserType.LaunchOptions opts = new BrowserType.LaunchOptions()
                     .setHeadless(true)

@@ -1,13 +1,13 @@
 import { useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft, Pencil, Trash2, ExternalLink, Paperclip, StickyNote, Download } from 'lucide-react'
+import { ArrowLeft, Pencil, Trash2, ExternalLink, Paperclip, StickyNote, Download, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import StatusBadge from '@/components/StatusBadge'
 import { useApplication, useDeleteApplication } from '@/hooks/useApplications'
-import { useNotes, useCreateNote, useDeleteNote } from '@/hooks/useNotes'
+import { useNotes, useCreateNote, useDeleteNote, useGenerateNote } from '@/hooks/useNotes'
 import { useAttachments, useUploadAttachment, useDeleteAttachment } from '@/hooks/useAttachments'
 import { getDownloadUrl } from '@/api/attachments'
 import { useForm } from 'react-hook-form'
@@ -101,7 +101,7 @@ export default function ApplicationDetail() {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <AddNoteForm applicationId={id!} />
+          <AddNoteForm applicationId={id!} jobUrl={app.jobUrl} />
           {!notes?.length ? (
             <p className="text-sm text-muted-foreground">{t('detail.noNotes')}</p>
           ) : (
@@ -160,10 +160,11 @@ function Detail({ label, value }: { label: string; value: string }) {
   )
 }
 
-function AddNoteForm({ applicationId }: { applicationId: string }) {
+function AddNoteForm({ applicationId, jobUrl }: { applicationId: string; jobUrl?: string }) {
   const { t } = useTranslation()
   const createNote = useCreateNote(applicationId)
-  const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm<{ content: string }>()
+  const generateNote = useGenerateNote(applicationId)
+  const { register, handleSubmit, reset, setValue, formState: { isSubmitting } } = useForm<{ content: string }>()
 
   async function onSubmit(values: { content: string }) {
     if (!values.content.trim()) return
@@ -171,17 +172,45 @@ function AddNoteForm({ applicationId }: { applicationId: string }) {
     reset()
   }
 
+  async function handleGenerate() {
+    try {
+      const result = await generateNote.mutateAsync()
+      setValue('content', result.generatedContent)
+    } catch {
+      // generateNote.isError becomes true — error rendered below
+    }
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2">
-      <Textarea
-        {...register('content')}
-        placeholder={t('detail.addNotePlaceholder')}
-        className="min-h-[60px] resize-none"
-      />
-      <Button type="submit" disabled={isSubmitting} className="shrink-0 self-end">
-        {t('detail.add')}
-      </Button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2">
+        <Textarea
+          {...register('content')}
+          placeholder={t('detail.addNotePlaceholder')}
+          className="min-h-[60px] resize-none"
+        />
+        <div className="flex flex-col justify-end gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleGenerate}
+            disabled={!jobUrl || generateNote.isPending}
+            className="shrink-0 whitespace-nowrap"
+          >
+            {generateNote.isPending
+              ? <><Loader2 className="w-3 h-3 animate-spin mr-1 inline" />{t('detail.generating')}</>
+              : t('detail.generateWithAi')}
+          </Button>
+          <Button type="submit" disabled={isSubmitting} className="shrink-0">
+            {t('detail.add')}
+          </Button>
+        </div>
+      </form>
+      {generateNote.isError && (
+        <p className="text-xs text-destructive mt-1">{t('detail.generateError')}</p>
+      )}
+    </>
   )
 }
 

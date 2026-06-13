@@ -10,6 +10,7 @@ C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\ApplicationResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\AttachmentResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\AutofillResponse.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\GeneratedNoteResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\NoteResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\PagedResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\StatsResponse.java
@@ -25,5 +26,6 @@ C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\repository\NoteRepository.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\ApplicationService.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\AttachmentService.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\GenerateNoteService.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\NoteService.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\StatsService.java

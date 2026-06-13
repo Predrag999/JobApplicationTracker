@@ -7,10 +7,12 @@ com\jobtracker\config\CorsConfig$1.class
 com\jobtracker\service\AttachmentService.class
 com\jobtracker\dto\request\UpdateApplicationRequest.class
 com\jobtracker\exception\ResourceNotFoundException.class
+com\jobtracker\service\GenerateNoteService.class
 com\jobtracker\controller\ApplicationController.class
 com\jobtracker\service\StatsService.class
 com\jobtracker\repository\ApplicationRepository.class
 com\jobtracker\dto\response\NoteResponse.class
+com\jobtracker\dto\response\GeneratedNoteResponse.class
 com\jobtracker\controller\NoteController.class
 com\jobtracker\enums\ApplicationStatus.class
 com\jobtracker\entity\Attachment.class

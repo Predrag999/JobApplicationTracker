@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { listNotes, createNote, deleteNote } from '@/api/notes'
+import { listNotes, createNote, deleteNote, generateNote } from '@/api/notes'
 import type { CreateNoteRequest } from '@/types'
 
 export function useNotes(applicationId: string) {
@@ -29,5 +29,11 @@ export function useDeleteNote(applicationId: string) {
       queryClient.invalidateQueries({ queryKey: ['notes', applicationId] })
       queryClient.invalidateQueries({ queryKey: ['applications', applicationId] })
     },
+  })
+}
+
+export function useGenerateNote(applicationId: string) {
+  return useMutation({
+    mutationFn: () => generateNote(applicationId),
   })
 }

@@ -17,6 +17,7 @@ A personal, full-stack web application for tracking job applications through eve
 - Add multiple timestamped notes per application
 - Delete individual notes
 - Notes displayed in reverse-chronological order
+- **Generate with AI** — one-click AI summary in the Notes section of any application that has a job URL saved; the backend scrapes the posting and calls Claude to produce a 2–3 sentence summary, which is pre-filled into the note textarea for review before saving (requires an Anthropic API key — see setup below)
 
 ### File Attachments
 - Attach files (resumes, cover letters, etc.) to any application
@@ -41,6 +42,14 @@ A personal, full-stack web application for tracking job applications through eve
 - When a site's static HTML is incomplete (JS-rendered content), the backend automatically escalates to a headless Chromium browser (Playwright) for a second attempt
 - Sites protected by **DataDome**, **Cloudflare** managed challenges, or other CAPTCHAs cannot be scraped automatically — the app detects this and shows a clear message asking you to fill in the fields manually instead of silently returning wrong values
 - **Best results with [dev.bg](https://dev.bg/)** — dev.bg exposes a `JobPosting` JSON-LD block on every listing, so company name and job title are extracted reliably with no browser fallback needed
+
+### AI Note Generation
+- Click **Generate with AI** in the Notes section of any saved application
+- The backend fetches the stored job URL, extracts the job description (JSON-LD → microdata → CSS selectors → body fallback, up to 10 000 characters), and sends it to Claude Haiku via the Anthropic API
+- Claude returns a concise 2–3 sentence summary covering the role, key requirements, and highlights
+- The summary is pre-filled into the note textarea — you can edit it before clicking **Add** to save
+- The button is disabled when no job URL is saved on the application
+- Requires an `ANTHROPIC_API_KEY` environment variable — see **Getting Started → Step 4**
 
 ### Settings & Personalization
 - **Theme**: Light / Dark mode toggle — preference persisted in `localStorage`
@@ -94,6 +103,7 @@ JobApplicationTracker/
 │       │   ├── service/
 │       │   │   ├── ApplicationService.java
 │       │   │   ├── NoteService.java
+│       │   │   ├── GenerateNoteService.java  # AI note generation via Anthropic API
 │       │   │   ├── AttachmentService.java
 │       │   │   └── StatsService.java
 │       │   ├── repository/
@@ -106,7 +116,7 @@ JobApplicationTracker/
 │       │   │   └── Attachment.java
 │       │   ├── dto/
 │       │   │   ├── request/   CreateApplicationRequest, UpdateApplicationRequest, CreateNoteRequest
-│       │   │   └── response/  ApplicationResponse, NoteResponse, AttachmentResponse, StatsResponse, PagedResponse
+│       │   │   └── response/  ApplicationResponse, NoteResponse, AttachmentResponse, StatsResponse, PagedResponse, GeneratedNoteResponse
 │       │   ├── enums/
 │       │   │   └── ApplicationStatus.java
 │       │   └── exception/
@@ -247,7 +257,27 @@ spring.servlet.multipart.max-request-size=10MB
 server.port=8080
 ```
 
-### 4. Start the backend
+### 4. Set up the Anthropic API key *(required for Generate with AI)*
+
+The **Generate with AI** button in the Notes section calls the Anthropic Claude API. Without this key the rest of the app works normally, but the button will return a "not configured" error.
+
+1. Go to [console.anthropic.com](https://console.anthropic.com/) → **API Keys** → **Create Key**
+2. Add credits under **Plans & Billing** ($5 is more than enough — each button click costs ≈ $0.0003)
+3. Set the environment variable in the terminal where you will start the backend:
+
+**Windows (PowerShell):**
+```powershell
+$env:ANTHROPIC_API_KEY = "sk-ant-..."
+```
+
+**macOS / Linux:**
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+```
+
+> The variable must be set **in the same terminal session** before running Maven. It is not stored anywhere in the project.
+
+### 5. Start the backend
 
 ```bash
 cd backend
@@ -258,14 +288,14 @@ mvnw.cmd spring-boot:run      # Windows
 The API will be available at `http://localhost:8080`.  
 Hibernate will auto-create all tables on first run.
 
-### 5. Install frontend dependencies
+### 6. Install frontend dependencies
 
 ```bash
 cd frontend
 npm install
 ```
 
-### 6. Start the frontend
+### 7. Start the frontend
 
 ```bash
 npm run dev
@@ -320,6 +350,14 @@ Returns `422 Unprocessable Entity` when the target site uses bot protection (Dat
 | `GET` | `/applications/{id}/notes` | List notes for an application |
 | `POST` | `/applications/{id}/notes` | Add a note |
 | `DELETE` | `/applications/{id}/notes/{noteId}` | Delete a note |
+| `POST` | `/applications/{id}/notes/generate` | Scrape job URL and generate an AI summary (requires `ANTHROPIC_API_KEY`) |
+
+**Response for `/generate`:**
+```json
+{ "generatedContent": "This is a Senior Backend Developer role at Coca-Cola HBC..." }
+```
+
+Returns `503` if `ANTHROPIC_API_KEY` is not set, `422` if the application has no job URL or the site uses bot protection, `502` if the Anthropic API call fails.
 
 ### Attachments
 
@@ -348,6 +386,7 @@ Returns `422 Unprocessable Entity` when the target site uses bot protection (Dat
 - **Theming**: Dark/light mode is implemented via a `.dark` CSS class toggled on `<html>`. The active theme is stored in `localStorage` and read on startup before the first render to avoid flash.
 - **i18n**: All UI strings are managed through `i18next`. Translations live in `src/i18n/locales/`. The active language is stored in `localStorage`. Adding a new language only requires a new locale file and a button in `SettingsModal`.
 - **Modal state**: `ModalContext` holds the open/close state for the Search and Settings overlays so any component can trigger them without prop drilling. The Ctrl+K shortcut is wired in `Layout.tsx`.
+- **AI integration**: `GenerateNoteService` calls the Anthropic Messages API (`/v1/messages`) directly via Java's built-in `HttpClient` — no additional SDK dependency. The API key is read from the `ANTHROPIC_API_KEY` environment variable at runtime and never stored in the codebase. Model used: `claude-haiku-4-5-20251001`.
 
 ---
 
@@ -379,3 +418,4 @@ Returns `422 Unprocessable Entity` when the target site uses bot protection (Dat
 - No status history — only the current status is stored.
 - Language support is limited to English, Deutsch, and Bulgarian; adding more requires a new locale file in `src/i18n/locales/`.
 - Autofill does not work with sites that use bot-protection services (DataDome, Cloudflare managed challenges, CAPTCHA). Confirmed working best with **[dev.bg](https://dev.bg/)**.
+- **Generate with AI** requires an Anthropic API key (`ANTHROPIC_API_KEY` env var) and a funded account. Without it the button returns a "not configured" error. Each click costs approximately $0.0003 using Claude Haiku.
