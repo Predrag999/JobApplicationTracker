@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { RefreshCw, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,7 +16,12 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useApplication, useCreateApplication, useUpdateApplication } from '@/hooks/useApplications'
+import {
+  useApplication,
+  useAutofill,
+  useCreateApplication,
+  useUpdateApplication,
+} from '@/hooks/useApplications'
 import { APPLICATION_STATUSES } from '@/types'
 
 const schema = z.object({
@@ -38,6 +44,9 @@ export default function ApplicationForm() {
   const { data: existing } = useApplication(id ?? '')
   const createApp = useCreateApplication()
   const updateApp = useUpdateApplication(id ?? '')
+  const autofill = useAutofill()
+
+  const [autofillUrl, setAutofillUrl] = useState('')
 
   const {
     register,
@@ -79,6 +88,18 @@ export default function ApplicationForm() {
     }
   }
 
+  async function handleAutofill() {
+    if (!autofillUrl.trim()) return
+    try {
+      const result = await autofill.mutateAsync(autofillUrl.trim())
+      setValue('companyName', result.companyName)
+      setValue('jobTitle', result.jobTitle)
+      setValue('jobUrl', result.jobUrl)
+    } catch {
+      // autofill.isError becomes true — error message rendered below the button
+    }
+  }
+
   const statusValue = watch('status')
 
   return (
@@ -86,6 +107,43 @@ export default function ApplicationForm() {
       <h1 className="text-2xl font-bold mb-6">
         {isEdit ? t('form.editTitle') : t('form.newTitle')}
       </h1>
+
+      {!isEdit && (
+        <Card className="mb-4">
+          <CardContent className="pt-6">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                <RefreshCw className="w-4 h-4 text-primary" />
+              </div>
+              <div>
+                <p className="font-medium text-sm">{t('form.autofill.title')}</p>
+                <p className="text-sm text-muted-foreground">{t('form.autofill.subtitle')}</p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Input
+                value={autofillUrl}
+                onChange={(e) => setAutofillUrl(e.target.value)}
+                placeholder={t('form.autofill.placeholder')}
+                onKeyDown={(e) => e.key === 'Enter' && handleAutofill()}
+              />
+              <Button
+                type="button"
+                onClick={handleAutofill}
+                disabled={autofill.isPending || !autofillUrl.trim()}
+                className="shrink-0"
+              >
+                {autofill.isPending
+                  ? <Loader2 className="w-4 h-4 animate-spin" />
+                  : t('form.autofill.button')}
+              </Button>
+            </div>
+            {autofill.isError && (
+              <p className="text-xs text-destructive mt-2">{t('form.autofill.error')}</p>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>

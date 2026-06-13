@@ -3,6 +3,7 @@ package com.jobtracker.controller;
 import com.jobtracker.dto.request.CreateApplicationRequest;
 import com.jobtracker.dto.request.UpdateApplicationRequest;
 import com.jobtracker.dto.response.ApplicationResponse;
+import com.jobtracker.dto.response.AutofillResponse;
 import com.jobtracker.dto.response.PagedResponse;
 import com.jobtracker.enums.ApplicationStatus;
 import com.jobtracker.service.ApplicationService;
@@ -32,6 +33,11 @@ public class ApplicationController {
             @RequestParam(defaultValue = "appliedDate") String sortBy,
             @RequestParam(defaultValue = "desc") String sortDir) {
         return applicationService.findAll(status, search, page, size, sortBy, sortDir);
+    }
+
+    @GetMapping("/autofill")
+    public AutofillResponse autofill(@RequestParam String url) {
+        return applicationService.autofill(url);
     }
 
     @GetMapping("/{id}")

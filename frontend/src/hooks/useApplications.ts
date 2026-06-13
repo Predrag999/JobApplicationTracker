@@ -5,6 +5,7 @@ import {
   createApplication,
   updateApplication,
   deleteApplication,
+  autofillApplication,
   type ListApplicationsParams,
 } from '@/api/applications'
 import type { CreateApplicationRequest, UpdateApplicationRequest } from '@/types'
@@ -47,5 +48,11 @@ export function useDeleteApplication() {
   return useMutation({
     mutationFn: (id: string) => deleteApplication(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['applications'] }),
+  })
+}
+
+export function useAutofill() {
+  return useMutation({
+    mutationFn: (url: string) => autofillApplication(url),
   })
 }

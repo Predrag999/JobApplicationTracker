@@ -1,6 +1,7 @@
 import { apiClient } from './client'
 import type {
   ApplicationResponse,
+  AutofillResponse,
   CreateApplicationRequest,
   PagedResponse,
   UpdateApplicationRequest,
@@ -44,4 +45,8 @@ export function updateApplication(id: string, data: UpdateApplicationRequest) {
 
 export function deleteApplication(id: string) {
   return apiClient.delete(`/applications/${id}`)
+}
+
+export function autofillApplication(url: string) {
+  return apiClient.get<AutofillResponse>(`/applications/autofill?url=${encodeURIComponent(url)}`)
 }

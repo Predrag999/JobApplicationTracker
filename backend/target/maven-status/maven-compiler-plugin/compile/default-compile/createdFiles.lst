@@ -22,6 +22,7 @@ com\jobtracker\dto\response\ApplicationResponse.class
 com\jobtracker\controller\StatsController.class
 com\jobtracker\dto\request\CreateApplicationRequest.class
 com\jobtracker\dto\response\AttachmentResponse.class
+com\jobtracker\dto\response\AutofillResponse.class
 com\jobtracker\service\ApplicationService.class
 com\jobtracker\JobTrackerApplication.class
 com\jobtracker\config\FileStorageConfig.class

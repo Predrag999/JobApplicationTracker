@@ -79,6 +79,13 @@ const en = {
     submit: { create: 'Create Application', save: 'Save Changes' },
     cancel: 'Cancel',
     error: { required: 'Required', url: 'Must be a valid URL' },
+    autofill: {
+      title: 'Paste a job URL to autofill',
+      subtitle: "We'll pull the company and role from the listing",
+      placeholder: 'https://stripe.com/jobs/listing/...',
+      button: 'Autofill',
+      error: 'Could not fetch job details (the site may use bot protection). Please fill in the fields manually.',
+    },
   },
   search: {
     placeholder: 'Search by company, role...',

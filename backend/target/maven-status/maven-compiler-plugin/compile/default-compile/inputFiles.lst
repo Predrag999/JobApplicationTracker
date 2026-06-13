@@ -9,6 +9,7 @@ C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\request\UpdateApplicationRequest.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\ApplicationResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\AttachmentResponse.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\AutofillResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\NoteResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\PagedResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\StatsResponse.java

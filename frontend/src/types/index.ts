@@ -86,3 +86,9 @@ export type UpdateApplicationRequest = CreateApplicationRequest
 export interface CreateNoteRequest {
   content: string
 }
+
+export interface AutofillResponse {
+  companyName: string
+  jobTitle: string
+  jobUrl: string
+}

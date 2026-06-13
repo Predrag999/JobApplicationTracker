@@ -1,0 +1,15 @@
+
+> job-tracker-frontend@0.0.0 dev
+> vite
+
+(node:10912) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m1608[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m2:01:43 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ApplicationForm.tsx, /src/index.css[22m
+[2m2:01:53 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.ts[22m
+[2m2:02:03 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/i18n/locales/bg.ts[22m
+[2m2:02:07 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/i18n/locales/de.ts[22m

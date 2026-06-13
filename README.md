@@ -35,6 +35,13 @@ A personal, full-stack web application for tracking job applications through eve
 - Status filter chips inside the search overlay (All, Applied, Interview, Offer, etc.)
 - Click any result to navigate directly to that application
 
+### URL Autofill
+- Paste any job listing URL into the autofill field on the "New Application" form and the app will attempt to extract the company name and job title automatically
+- Extraction pipeline: JSON-LD `JobPosting` schema → OpenGraph tags → CSS/microdata selectors → H1 heading
+- When a site's static HTML is incomplete (JS-rendered content), the backend automatically escalates to a headless Chromium browser (Playwright) for a second attempt
+- Sites protected by **DataDome**, **Cloudflare** managed challenges, or other CAPTCHAs cannot be scraped automatically — the app detects this and shows a clear message asking you to fill in the fields manually instead of silently returning wrong values
+- **Best results with [dev.bg](https://dev.bg/)** — dev.bg exposes a `JobPosting` JSON-LD block on every listing, so company name and job title are extracted reliably with no browser fallback needed
+
 ### Settings & Personalization
 - **Theme**: Light / Dark mode toggle — preference persisted in `localStorage`
 - **Language**: Switch the entire UI between English, Deutsch, and Bulgarian — preference persisted in `localStorage`
@@ -293,6 +300,19 @@ All endpoints are prefixed with `/api`.
 | `sortBy` | string | `appliedDate` | Field to sort by |
 | `sortDir` | string | `desc` | `asc` or `desc` |
 
+### Autofill
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/applications/autofill?url={url}` | Extract company name and job title from a job listing URL |
+
+**Response:**
+```json
+{ "companyName": "Accedia", "jobTitle": "Junior Java Developer", "jobUrl": "https://dev.bg/..." }
+```
+
+Returns `422 Unprocessable Entity` when the target site uses bot protection (DataDome, Cloudflare managed challenge, CAPTCHA) that prevents automated extraction.
+
 ### Notes
 
 | Method | Endpoint | Description |
@@ -358,3 +378,4 @@ All endpoints are prefixed with `/api`.
 - No email or push notifications for deadlines (deadline date is stored but not acted on).
 - No status history — only the current status is stored.
 - Language support is limited to English, Deutsch, and Bulgarian; adding more requires a new locale file in `src/i18n/locales/`.
+- Autofill does not work with sites that use bot-protection services (DataDome, Cloudflare managed challenges, CAPTCHA). Confirmed working best with **[dev.bg](https://dev.bg/)**.

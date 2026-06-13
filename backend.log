@@ -1,0 +1,80 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/C:/Users/predr/.m2/wrapper/dists/apache-maven-3.9.11/03d7e36a140982eea48e22c1dcac01d8862b2550b2939e09a0809bbc5182a5bc/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.jobtracker:job-tracker >---------------------
+[INFO] Building job-tracker 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.3.4:run (default-cli) > test-compile @ job-tracker >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ job-tracker ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ job-tracker ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 29 source files with javac [debug parameters release 21] to target\classes
+[INFO] /C:/AI-AssistanceSoftUniWorkSpace/JobApplicationTracker/backend/src/main/java/com/jobtracker/service/ApplicationService.java: C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\ApplicationService.java uses or overrides a deprecated API.
+[INFO] /C:/AI-AssistanceSoftUniWorkSpace/JobApplicationTracker/backend/src/main/java/com/jobtracker/service/ApplicationService.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ job-tracker ---
+[INFO] skip non existing resourceDirectory C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ job-tracker ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.3.4:run (default-cli) < test-compile @ job-tracker <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.4:run (default-cli) @ job-tracker ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-06-13T14:14:49.611+03:00  INFO 19872 --- [           main] com.jobtracker.JobTrackerApplication     : Starting JobTrackerApplication using Java 25.0.3 with PID 19872 (C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\target\classes started by predr in C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend)
+2026-06-13T14:14:49.613+03:00  INFO 19872 --- [           main] com.jobtracker.JobTrackerApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-06-13T14:14:50.159+03:00  INFO 19872 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-13T14:14:50.213+03:00  INFO 19872 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 3 JPA repository interfaces.
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/C:/Users/predr/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.30/tomcat-embed-core-10.1.30.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+2026-06-13T14:14:50.647+03:00  INFO 19872 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-13T14:14:50.660+03:00  INFO 19872 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-13T14:14:50.660+03:00  INFO 19872 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-06-13T14:14:50.719+03:00  INFO 19872 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-13T14:14:50.720+03:00  INFO 19872 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1069 ms
+2026-06-13T14:14:50.868+03:00  INFO 19872 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-13T14:14:50.928+03:00  INFO 19872 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-06-13T14:14:50.964+03:00  INFO 19872 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-13T14:14:51.230+03:00  INFO 19872 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-13T14:14:51.255+03:00  INFO 19872 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-13T14:14:51.422+03:00  INFO 19872 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@37c1cfa
+2026-06-13T14:14:51.423+03:00  INFO 19872 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-13T14:14:51.453+03:00  WARN 19872 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-13T14:14:52.296+03:00  INFO 19872 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-13T14:14:52.386+03:00  INFO 19872 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-13T14:14:52.584+03:00  INFO 19872 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-13T14:14:53.298+03:00  WARN 19872 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-13T14:14:53.604+03:00  INFO 19872 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-13T14:14:53.610+03:00  INFO 19872 --- [           main] com.jobtracker.JobTrackerApplication     : Started JobTrackerApplication in 4.3 seconds (process running for 4.606)
+2026-06-13T14:14:55.139+03:00  INFO 19872 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-13T14:14:55.139+03:00  INFO 19872 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-13T14:14:55.140+03:00  INFO 19872 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-06-13T14:14:55.768+03:00  INFO 19872 --- [nio-8080-exec-3] c.jobtracker.service.ApplicationService  : Autofill extracted — company: 'Accedia', title: 'Junior Java Developer' from https://dev.bg/company/jobads/accedia-junior-java-developer-2/
+2026-06-13T14:14:55.850+03:00  INFO 19872 --- [nio-8080-exec-2] c.jobtracker.service.ApplicationService  : Autofill extracted — company: 'Coca-Cola HBC', title: 'Senior Backend Developer' from https://dev.bg/company/jobads/coca-cola-hbc-senior-backend-developer/
+2026-06-13T14:16:55.397+03:00  INFO 19872 --- [nio-8080-exec-2] c.jobtracker.service.ApplicationService  : Autofill extracted — company: 'Coca-Cola HBC', title: 'Senior Backend Developer' from https://dev.bg/company/jobads/coca-cola-hbc-senior-backend-developer/
+2026-06-13T14:17:38.470+03:00  INFO 19872 --- [nio-8080-exec-1] c.jobtracker.service.ApplicationService  : Autofill extracted — company: 'UBB / DZI', title: 'Principal Full Stack .NET Engineer Ref #: HQ1554' from https://dev.bg/company/jobads/ubb-dzi-principal-full-stack-net-engineer-ref-hq1554/
+2026-06-13T14:19:25.576+03:00  INFO 19872 --- [nio-8080-exec-8] c.jobtracker.service.ApplicationService  : Autofill extracted — company: 'Costa Coffee', title: 'Lead Software Developer (Node.js)' from https://dev.bg/company/jobads/costa-coffee-lead-software-developer-node-js/

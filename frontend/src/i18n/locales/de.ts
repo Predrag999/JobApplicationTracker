@@ -79,6 +79,13 @@ const de = {
     submit: { create: 'Bewerbung erstellen', save: 'Änderungen speichern' },
     cancel: 'Abbrechen',
     error: { required: 'Pflichtfeld', url: 'Muss eine gültige URL sein' },
+    autofill: {
+      title: 'Job-URL einfügen zum automatischen Ausfüllen',
+      subtitle: 'Wir lesen Unternehmen und Stelle aus dem Inserat aus',
+      placeholder: 'https://stripe.com/jobs/listing/...',
+      button: 'Ausfüllen',
+      error: 'Job-Details konnten nicht abgerufen werden (die Seite nutzt möglicherweise Bot-Schutz). Bitte fülle die Felder manuell aus.',
+    },
   },
   search: {
     placeholder: 'Unternehmen, Stelle suchen...',
