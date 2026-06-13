@@ -37,6 +37,7 @@ import java.util.UUID;
 public class ApplicationService {
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationService.class);
+    private static final ObjectMapper JSON = new ObjectMapper();
 
     private final ApplicationRepository applicationRepository;
 
@@ -152,10 +153,9 @@ public class ApplicationService {
 
         // 1. JSON-LD JobPosting schema (most reliable — used for Google for Jobs)
         Elements scripts = doc.select("script[type=application/ld+json]");
-        ObjectMapper mapper = new ObjectMapper();
         for (Element script : scripts) {
             try {
-                JsonNode node = mapper.readTree(script.data());
+                JsonNode node = JSON.readTree(script.data());
                 JsonNode posting = findJobPosting(node);
                 if (posting != null) {
                     if (posting.has("title")) jobTitle = posting.get("title").asText();
