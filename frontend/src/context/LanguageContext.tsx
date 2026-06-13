@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 import i18n from '@/i18n'
 
-export type Language = 'en' | 'de' | 'bg'
+export type Language = 'en' | 'bg'
 
 interface LanguageContextValue {
   language: Language
@@ -12,7 +12,7 @@ const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 function getInitialLanguage(): Language {
   const stored = localStorage.getItem('language') as Language | null
-  if (stored === 'en' || stored === 'de' || stored === 'bg') return stored
+  if (stored === 'en' || stored === 'bg') return stored
   return 'en'
 }
 

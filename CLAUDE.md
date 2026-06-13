@@ -25,6 +25,6 @@ Do NOT skip the guard for "trivial" changes. A one-line edit can introduce a typ
 - DTOs are Java records — no Lombok
 - Entities never leave the service layer; always map to a response record
 - All UI strings use `t('key')` — no hardcoded English in JSX
-- Every translatable string must exist in `en.ts`, `bg.ts`, and `de.ts`
+- Every translatable string must exist in `en.ts` and `bg.ts`
 - HTTP calls go through `src/api/client.ts` only
 - `ResponseStatusException` needs its own `@ExceptionHandler` in `GlobalExceptionHandler` — never let the generic `Exception` handler swallow it

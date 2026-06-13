@@ -53,7 +53,7 @@ A personal, full-stack web application for tracking job applications through eve
 
 ### Settings & Personalization
 - **Theme**: Light / Dark mode toggle — preference persisted in `localStorage`
-- **Language**: Switch the entire UI between English, Deutsch, and Bulgarian — preference persisted in `localStorage`
+- **Language**: Switch the entire UI between English and Bulgarian — preference persisted in `localStorage`
 - Settings accessible via the gear icon in the page header
 
 ---
@@ -157,7 +157,6 @@ JobApplicationTracker/
         │   ├── index.ts                  # i18next initialisation
         │   └── locales/
         │       ├── en.ts                 # English translations
-        │       ├── de.ts                 # German translations
         │       └── bg.ts                 # Bulgarian translations
         ├── components/
         │   ├── Layout.tsx                # Sidebar nav + Ctrl+K handler
@@ -384,7 +383,7 @@ Returns `503` if `ANTHROPIC_API_KEY` is not set, `422` if the application has no
 - **CORS**: The backend allows `http://localhost:5173` on all `/api/**` routes.
 - **Java records for DTOs**: All request and response DTOs are Java records. Lombok was intentionally removed for compatibility with Java 25.
 - **Theming**: Dark/light mode is implemented via a `.dark` CSS class toggled on `<html>`. The active theme is stored in `localStorage` and read on startup before the first render to avoid flash.
-- **i18n**: All UI strings are managed through `i18next`. Translations live in `src/i18n/locales/`. The active language is stored in `localStorage`. Adding a new language only requires a new locale file and a button in `SettingsModal`.
+- **i18n**: All UI strings are managed through `i18next`. Translations live in `src/i18n/locales/` (`en.ts`, `bg.ts`). The active language is stored in `localStorage`. Adding a new language requires a new locale file and a button in `SettingsModal`.
 - **Modal state**: `ModalContext` holds the open/close state for the Search and Settings overlays so any component can trigger them without prop drilling. The Ctrl+K shortcut is wired in `Layout.tsx`.
 - **AI integration**: `GenerateNoteService` calls the Anthropic Messages API (`/v1/messages`) directly via Java's built-in `HttpClient` — no additional SDK dependency. The API key is read from the `ANTHROPIC_API_KEY` environment variable at runtime and never stored in the codebase. Model used: `claude-haiku-4-5-20251001`.
 
@@ -416,6 +415,6 @@ Returns `503` if `ANTHROPIC_API_KEY` is not set, `422` if the application has no
 - Files are stored on the local filesystem; no cloud storage integration.
 - No email or push notifications for deadlines (deadline date is stored but not acted on).
 - No status history — only the current status is stored.
-- Language support is limited to English, Deutsch, and Bulgarian; adding more requires a new locale file in `src/i18n/locales/`.
+- Language support is limited to English and Bulgarian; adding more requires a new locale file in `src/i18n/locales/` and a button in `SettingsModal`.
 - Autofill does not work with sites that use bot-protection services (DataDome, Cloudflare managed challenges, CAPTCHA). Confirmed working best with **[dev.bg](https://dev.bg/)**.
 - **Generate with AI** requires an Anthropic API key (`ANTHROPIC_API_KEY` env var) and a funded account. Without it the button returns a "not configured" error. Each click costs approximately $0.0003 using Claude Haiku.

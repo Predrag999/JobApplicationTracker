@@ -81,7 +81,7 @@ Any finding in this gate is **CRITICAL** and causes a **BLOCK** verdict.
 
 ## Gate 5 — Project Conventions
 
-- **i18n completeness**: every new translatable string must exist in all three locale files (`en.ts`, `bg.ts`, `de.ts`) with a non-empty value
+- **i18n completeness**: every new translatable string must exist in both locale files (`en.ts`, `bg.ts`) with a non-empty value
 - **Error response shape**: backend errors must always be `{ message: string, timestamp: string }` as produced by `GlobalExceptionHandler.errorBody()`
 - **Autofill pipeline**: any new scraping code must call `isBotProtected(doc)` before returning results; `og:title` must not be used as `jobTitle` when `isLikelyJobBoardDefault()` returns true for it
 - **Status enum**: a new `ApplicationStatus` variant requires changes in all four places — `ApplicationStatus.java`, `src/types/index.ts`, and all three locale files (`status.*` keys)
