@@ -6,7 +6,8 @@
       "PowerShell(java *)",
       "PowerShell(netstat *)",
       "PowerShell(npm *)",
-      "PowerShell($ProgressPreference = 'SilentlyContinue'; try { $r = Invoke-WebRequest -Uri \"http://localhost:8080/actuator/health\" -TimeoutSec 3 -UseBasicParsing; \"Backend UP: $\\($r.StatusCode\\)\" } catch { \"Backend DOWN or no actuator\" })"
+      "PowerShell($ProgressPreference = 'SilentlyContinue'; try { $r = Invoke-WebRequest -Uri \"http://localhost:8080/actuator/health\" -TimeoutSec 3 -UseBasicParsing; \"Backend UP: $\\($r.StatusCode\\)\" } catch { \"Backend DOWN or no actuator\" })",
+      "Skill(run)"
     ]
   }
 }
