@@ -116,6 +116,12 @@ const bg = {
     REJECTED: 'Отхвърлен',
     WITHDRAWN: 'Оттеглен',
   },
+  export: {
+    button: 'Експорт на данни',
+    csv: 'Експорт като CSV',
+    excel: 'Експорт като Excel',
+    error: 'Експортът не успя. Работи ли бекендът?',
+  },
   themeToggle: {
     lightMode: 'Светъл режим',
     darkMode: 'Тъмен режим',

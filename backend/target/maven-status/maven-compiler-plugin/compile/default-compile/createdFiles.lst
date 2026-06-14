@@ -29,4 +29,5 @@ com\jobtracker\service\ApplicationService.class
 com\jobtracker\JobTrackerApplication.class
 com\jobtracker\config\FileStorageConfig.class
 com\jobtracker\dto\response\PagedResponse.class
+com\jobtracker\service\ExportService.class
 com\jobtracker\entity\JobApplication.class

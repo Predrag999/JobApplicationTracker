@@ -9,3 +9,22 @@
 
   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
 [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m12:04:38 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ApplicationDetail.tsx, /src/index.css, /src/pages/Dashboard.tsx, /src/pages/ApplicationForm.tsx, /src/pages/ApplicationList.tsx, /src/components/SearchModal.tsx[22m
+[2m12:04:42 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ApplicationForm.tsx, /src/index.css, /src/pages/Dashboard.tsx, /src/pages/ApplicationList.tsx, /src/pages/ApplicationDetail.tsx, /src/components/SearchModal.tsx[22m
+[2m12:04:46 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ApplicationForm.tsx, /src/index.css, /src/pages/Dashboard.tsx, /src/pages/ApplicationList.tsx, /src/pages/ApplicationDetail.tsx, /src/components/SearchModal.tsx[22m
+[2m12:04:51 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.ts[22m
+[2m12:04:54 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/i18n/locales/bg.ts[22m
+[2m12:05:02 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:05:06 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:05:12 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:05:19 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:10:39 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/i18n/locales/en.ts[22m
+[2m12:10:44 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/i18n/locales/bg.ts[22m
+[2m12:10:50 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:10:58 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:11:03 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Layout.tsx, /src/index.css[22m
+[2m12:19:17 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ApplicationDetail.tsx, /src/index.css, /src/pages/Dashboard.tsx, /src/pages/ApplicationForm.tsx, /src/pages/ApplicationList.tsx, /src/components/SearchModal.tsx, /src/components/Layout.tsx[22m
+[2m12:19:22 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ApplicationDetail.tsx, /src/index.css, /src/pages/Dashboard.tsx, /src/pages/ApplicationForm.tsx, /src/pages/ApplicationList.tsx, /src/components/SearchModal.tsx, /src/components/Layout.tsx[22m
+[2m12:19:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ApplicationForm.tsx, /src/index.css, /src/pages/Dashboard.tsx, /src/pages/ApplicationList.tsx, /src/pages/ApplicationDetail.tsx, /src/components/SearchModal.tsx, /src/components/Layout.tsx[22m
+[2m12:19:41 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ApplicationForm.tsx, /src/index.css, /src/pages/Dashboard.tsx, /src/pages/ApplicationList.tsx, /src/pages/ApplicationDetail.tsx, /src/components/SearchModal.tsx, /src/components/Layout.tsx[22m
+[2m12:19:49 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/ApplicationDetail.tsx, /src/index.css, /src/pages/Dashboard.tsx, /src/pages/ApplicationForm.tsx, /src/pages/ApplicationList.tsx, /src/components/SearchModal.tsx, /src/components/Layout.tsx[22m

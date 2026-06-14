@@ -10,10 +10,6 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] >>> spring-boot:3.3.4:run (default-cli) > test-compile @ job-tracker >>>
-Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-devtools/3.3.4/spring-boot-devtools-3.3.4.pom
-Progress (1): 1.0 kBProgress (1): 2.3 kB                    Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-devtools/3.3.4/spring-boot-devtools-3.3.4.pom (2.3 kB at 4.9 kB/s)
-Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-devtools/3.3.4/spring-boot-devtools-3.3.4.jar
-Progress (1): 0.9/203 kBProgress (1): 2.3/203 kBProgress (1): 3.6/203 kBProgress (1): 5.0/203 kBProgress (1): 6.4/203 kBProgress (1): 7.7/203 kBProgress (1): 8.2/203 kBProgress (1): 9.6/203 kBProgress (1): 11/203 kB Progress (1): 12/203 kBProgress (1): 14/203 kBProgress (1): 15/203 kBProgress (1): 16/203 kBProgress (1): 18/203 kBProgress (1): 19/203 kBProgress (1): 21/203 kBProgress (1): 22/203 kBProgress (1): 23/203 kBProgress (1): 25/203 kBProgress (1): 26/203 kBProgress (1): 27/203 kBProgress (1): 29/203 kBProgress (1): 30/203 kBProgress (1): 31/203 kBProgress (1): 33/203 kBProgress (1): 34/203 kBProgress (1): 36/203 kBProgress (1): 37/203 kBProgress (1): 38/203 kBProgress (1): 40/203 kBProgress (1): 41/203 kBProgress (1): 42/203 kBProgress (1): 44/203 kBProgress (1): 45/203 kBProgress (1): 47/203 kBProgress (1): 48/203 kBProgress (1): 49/203 kBProgress (1): 51/203 kBProgress (1): 52/203 kBProgress (1): 56/203 kBProgress (1): 60/203 kBProgress (1): 65/203 kBProgress (1): 69/203 kBProgress (1): 73/203 kBProgress (1): 77/203 kBProgress (1): 82/203 kBProgress (1): 86/203 kBProgress (1): 90/203 kBProgress (1): 94/203 kBProgress (1): 99/203 kBProgress (1): 103/203 kBProgress (1): 107/203 kBProgress (1): 111/203 kBProgress (1): 115/203 kBProgress (1): 120/203 kBProgress (1): 123/203 kBProgress (1): 127/203 kBProgress (1): 131/203 kBProgress (1): 136/203 kBProgress (1): 140/203 kBProgress (1): 144/203 kBProgress (1): 148/203 kBProgress (1): 152/203 kBProgress (1): 157/203 kBProgress (1): 161/203 kBProgress (1): 165/203 kBProgress (1): 169/203 kBProgress (1): 174/203 kBProgress (1): 178/203 kBProgress (1): 182/203 kBProgress (1): 186/203 kBProgress (1): 191/203 kBProgress (1): 195/203 kBProgress (1): 199/203 kBProgress (1): 203 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-devtools/3.3.4/spring-boot-devtools-3.3.4.jar (203 kB at 2.3 MB/s)
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ job-tracker ---
 [INFO] Copying 1 resource from src\main\resources to target\classes
@@ -43,38 +39,37 @@ Progress (1): 0.9/203 kBProgress (1): 2.3/203 kBProgress (1): 3.6/203 kBProgr
 
  :: Spring Boot ::                (v3.3.4)
 
-2026-06-14T11:42:49.050+03:00  INFO 15776 --- [  restartedMain] com.jobtracker.JobTrackerApplication     : Starting JobTrackerApplication using Java 25.0.3 with PID 15776 (C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\target\classes started by predr in C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend)
-2026-06-14T11:42:49.052+03:00  INFO 15776 --- [  restartedMain] com.jobtracker.JobTrackerApplication     : No active profile set, falling back to 1 default profile: "default"
-2026-06-14T11:42:49.106+03:00  INFO 15776 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2026-06-14T11:42:49.107+03:00  INFO 15776 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2026-06-14T11:42:49.721+03:00  INFO 15776 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-14T11:42:49.817+03:00  INFO 15776 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 88 ms. Found 3 JPA repository interfaces.
+2026-06-14T12:17:13.065+03:00  INFO 3752 --- [  restartedMain] com.jobtracker.JobTrackerApplication     : Starting JobTrackerApplication using Java 25.0.3 with PID 3752 (C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\target\classes started by predr in C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend)
+2026-06-14T12:17:13.069+03:00  INFO 3752 --- [  restartedMain] com.jobtracker.JobTrackerApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-06-14T12:17:13.118+03:00  INFO 3752 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-14T12:17:13.119+03:00  INFO 3752 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-14T12:17:13.916+03:00  INFO 3752 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-14T12:17:13.988+03:00  INFO 3752 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 64 ms. Found 3 JPA repository interfaces.
 WARNING: A restricted method in java.lang.System has been called
 WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/C:/Users/predr/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.30/tomcat-embed-core-10.1.30.jar)
 WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
 WARNING: Restricted methods will be blocked in a future release unless native access is enabled
 
-2026-06-14T11:42:50.389+03:00  INFO 15776 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2026-06-14T11:42:50.402+03:00  INFO 15776 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-06-14T11:42:50.403+03:00  INFO 15776 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
-2026-06-14T11:42:50.446+03:00  INFO 15776 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-06-14T11:42:50.446+03:00  INFO 15776 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1339 ms
-2026-06-14T11:42:50.570+03:00  INFO 15776 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-06-14T11:42:50.620+03:00  INFO 15776 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
-2026-06-14T11:42:50.655+03:00  INFO 15776 --- [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2026-06-14T11:42:50.954+03:00  INFO 15776 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-06-14T11:42:50.979+03:00  INFO 15776 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-06-14T11:42:51.162+03:00  INFO 15776 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@72d5278f
-2026-06-14T11:42:51.163+03:00  INFO 15776 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-06-14T11:42:51.192+03:00  WARN 15776 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-06-14T11:42:52.079+03:00  INFO 15776 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-06-14T11:42:52.199+03:00  INFO 15776 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-06-14T11:42:52.405+03:00  INFO 15776 --- [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-06-14T11:42:53.131+03:00  INFO 15776 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2026-06-14T11:42:53.136+03:00  INFO 15776 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2026-06-14T11:42:53.154+03:00  WARN 15776 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-06-14T11:42:53.189+03:00  INFO 15776 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-14T11:42:53.189+03:00  INFO 15776 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-06-14T11:42:53.300+03:00  INFO 15776 --- [  restartedMain] com.jobtracker.JobTrackerApplication     : Started JobTrackerApplication in 4.645 seconds (process running for 5.012)
-2026-06-14T11:42:53.360+03:00  INFO 15776 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 171 ms
-2026-06-14T11:42:53.417+03:00  WARN 15776 --- [nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource actuator/health.]
+2026-06-14T12:17:14.655+03:00  INFO 3752 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-14T12:17:14.670+03:00  INFO 3752 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-14T12:17:14.670+03:00  INFO 3752 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-06-14T12:17:14.724+03:00  INFO 3752 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-14T12:17:14.724+03:00  INFO 3752 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1605 ms
+2026-06-14T12:17:14.889+03:00  INFO 3752 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-14T12:17:14.947+03:00  INFO 3752 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-06-14T12:17:14.988+03:00  INFO 3752 --- [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-14T12:17:15.340+03:00  INFO 3752 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-14T12:17:15.372+03:00  INFO 3752 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-14T12:17:15.708+03:00  INFO 3752 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@cfd95df
+2026-06-14T12:17:15.710+03:00  INFO 3752 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-14T12:17:15.746+03:00  WARN 3752 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-14T12:17:17.002+03:00  INFO 3752 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-14T12:17:17.107+03:00  INFO 3752 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-14T12:17:17.426+03:00  INFO 3752 --- [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-14T12:17:18.394+03:00  INFO 3752 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-14T12:17:18.400+03:00  INFO 3752 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-06-14T12:17:18.423+03:00  WARN 3752 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-14T12:17:18.598+03:00  INFO 3752 --- [  restartedMain] com.jobtracker.JobTrackerApplication     : Started JobTrackerApplication in 5.952 seconds (process running for 6.451)
+2026-06-14T12:17:27.010+03:00  INFO 3752 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-14T12:17:27.010+03:00  INFO 3752 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-14T12:17:27.068+03:00  INFO 3752 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 58 ms

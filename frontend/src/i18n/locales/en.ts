@@ -116,6 +116,12 @@ const en = {
     REJECTED: 'Rejected',
     WITHDRAWN: 'Withdrawn',
   },
+  export: {
+    button: 'Export Data',
+    csv: 'Export as CSV',
+    excel: 'Export as Excel',
+    error: 'Export failed. Is the backend running?',
+  },
   themeToggle: {
     lightMode: 'Light mode',
     darkMode: 'Dark mode',

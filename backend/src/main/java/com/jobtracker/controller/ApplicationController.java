@@ -7,6 +7,7 @@ import com.jobtracker.dto.response.AutofillResponse;
 import com.jobtracker.dto.response.PagedResponse;
 import com.jobtracker.enums.ApplicationStatus;
 import com.jobtracker.service.ApplicationService;
+import com.jobtracker.service.ExportService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,11 @@ import java.util.UUID;
 public class ApplicationController {
 
     private final ApplicationService applicationService;
+    private final ExportService exportService;
 
-    public ApplicationController(ApplicationService applicationService) {
+    public ApplicationController(ApplicationService applicationService, ExportService exportService) {
         this.applicationService = applicationService;
+        this.exportService = exportService;
     }
 
     @GetMapping
@@ -33,6 +36,19 @@ public class ApplicationController {
             @RequestParam(defaultValue = "appliedDate") String sortBy,
             @RequestParam(defaultValue = "desc") String sortDir) {
         return applicationService.findAll(status, search, page, size, sortBy, sortDir);
+    }
+
+    @GetMapping("/export")
+    public ResponseEntity<byte[]> export(@RequestParam(defaultValue = "csv") String format) {
+        byte[] data = exportService.export(format);
+        String ext = format.equals("xlsx") ? "xlsx" : "csv";
+        String contentType = format.equals("xlsx")
+                ? "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                : "text/csv; charset=UTF-8";
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=\"applications." + ext + "\"")
+                .header("Content-Type", contentType)
+                .body(data);
     }
 
     @GetMapping("/autofill")
