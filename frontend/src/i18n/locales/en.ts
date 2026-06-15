@@ -133,6 +133,11 @@ const en = {
   auth: {
     logout: 'Sign out',
   },
+  reminder: {
+    title: 'Deadline Tomorrow',
+    body: "The following applications have a deadline tomorrow. Make sure you're prepared!",
+    gotIt: 'Got it',
+  },
   themeToggle: {
     lightMode: 'Light mode',
     darkMode: 'Dark mode',

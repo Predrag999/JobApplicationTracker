@@ -17,6 +17,10 @@ export interface ListApplicationsParams {
   sortDir?: 'asc' | 'desc'
 }
 
+export function getDeadlineReminders(): Promise<ApplicationResponse[]> {
+  return apiClient.get<ApplicationResponse[]>('/applications/deadline/tomorrow')
+}
+
 export function listApplications(params: ListApplicationsParams = {}) {
   const query = new URLSearchParams()
   if (params.status) query.set('status', params.status)

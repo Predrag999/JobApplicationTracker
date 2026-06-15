@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -54,6 +55,12 @@ public class ApplicationController {
                 .header("Content-Disposition", "attachment; filename=\"applications." + ext + "\"")
                 .header("Content-Type", contentType)
                 .body(data);
+    }
+
+    @GetMapping("/deadline/tomorrow")
+    public List<ApplicationResponse> deadlineTomorrow(
+            @AuthenticationPrincipal CustomOAuth2User principal) {
+        return applicationService.findDeadlineTomorrow(principal.getUserId());
     }
 
     @GetMapping("/autofill")

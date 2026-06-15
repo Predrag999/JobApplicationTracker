@@ -32,6 +32,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -397,6 +399,13 @@ public class ApplicationService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
         }
         return app;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ApplicationResponse> findDeadlineTomorrow(UUID userId) {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        return applicationRepository.findByDeadlineTomorrowAndUserId(userId, tomorrow)
+                .stream().map(this::toResponse).toList();
     }
 
     private ApplicationResponse toResponse(JobApplication app) {

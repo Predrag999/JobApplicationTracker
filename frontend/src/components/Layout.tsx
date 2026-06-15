@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import ThemeToggle from '@/components/ThemeToggle'
 import SearchModal from '@/components/SearchModal'
 import SettingsModal from '@/components/SettingsModal'
+import ReminderModal from '@/components/ReminderModal'
 import { useModal } from '@/context/ModalContext'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
@@ -157,6 +158,7 @@ export default function Layout() {
       </main>
       <SearchModal />
       <SettingsModal />
+      <ReminderModal />
     </div>
   )
 }

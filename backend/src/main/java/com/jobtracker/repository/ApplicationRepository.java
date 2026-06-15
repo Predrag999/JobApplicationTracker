@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,4 +30,17 @@ public interface ApplicationRepository extends JpaRepository<JobApplication, UUI
     long countByStatusAndUser_Id(ApplicationStatus status, UUID userId);
 
     List<JobApplication> findByUser_IdOrderByAppliedDateDesc(UUID userId);
+
+    @Query("""
+            SELECT a FROM JobApplication a
+            WHERE a.user.id = :userId
+              AND a.deadlineDate = :tomorrow
+              AND a.status NOT IN (
+                  com.jobtracker.enums.ApplicationStatus.REJECTED,
+                  com.jobtracker.enums.ApplicationStatus.WITHDRAWN
+              )
+            """)
+    List<JobApplication> findByDeadlineTomorrowAndUserId(
+            @Param("userId") UUID userId,
+            @Param("tomorrow") LocalDate tomorrow);
 }
