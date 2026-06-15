@@ -85,7 +85,7 @@ const en = {
     autofill: {
       title: 'Paste a job URL to autofill',
       subtitle: "We'll pull the company and role from the listing",
-      placeholder: 'https://stripe.com/jobs/listing/...',
+      placeholder: 'Example: https://dev.bg/sofia/...',
       button: 'Autofill',
       error: 'Could not fetch job details (the site may use bot protection). Please fill in the fields manually.',
     },

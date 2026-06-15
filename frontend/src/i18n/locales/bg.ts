@@ -85,7 +85,7 @@ const bg = {
     autofill: {
       title: 'Постави URL на обява за автоматично попълване',
       subtitle: 'Ще извлечем компанията и позицията от обявата',
-      placeholder: 'https://stripe.com/jobs/listing/...',
+      placeholder: 'Example: https://dev.bg/sofia/...',
       button: 'Автопопълване',
       error: 'Не можахме да заредим детайлите (сайтът може да използва защита от ботове). Моля, попълни полетата ръчно.',
     },
