@@ -1,0 +1,68 @@
+# ─── Maven build output ───────────────────────────────────────────────────────
+backend/target/
+
+# ─── Maven wrapper jar (not needed if checked in deliberately) ────────────────
+# backend/.mvn/wrapper/maven-wrapper.jar
+
+# ─── Uploaded files (runtime data, not source) ────────────────────────────────
+backend/uploads/
+
+# ─── Spring Boot local profiles ───────────────────────────────────────────────
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-local.yml
+backend/src/main/resources/application-dev.properties
+backend/src/main/resources/application-dev.yml
+
+# ─── Node / npm ───────────────────────────────────────────────────────────────
+frontend/node_modules/
+
+# ─── Vite build output ────────────────────────────────────────────────────────
+frontend/dist/
+frontend/build/
+
+# ─── Vite cache ───────────────────────────────────────────────────────────────
+frontend/.vite/
+
+# ─── TypeScript build info ────────────────────────────────────────────────────
+frontend/*.tsbuildinfo
+
+# ─── Environment files ────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# ─── Log files ────────────────────────────────────────────────────────────────
+*.log
+*.log.*
+
+# ─── IDE — IntelliJ IDEA ──────────────────────────────────────────────────────
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# ─── IDE — VS Code ────────────────────────────────────────────────────────────
+.vscode/
+
+# ─── IDE — Eclipse ────────────────────────────────────────────────────────────
+.classpath
+.project
+.settings/
+.factorypath
+
+# ─── OS files ─────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Vim / Emacs swap & backup files ─────────────────────────────────────────
+*.swp
+*.swo
+*~
+
+# ─── Claude Code agent runtime data ──────────────────────────────────────────
+.claude/settings.local.json
+backend/.claude/

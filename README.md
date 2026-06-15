@@ -1,11 +1,12 @@
 # Job Application Tracker
 
-A personal, full-stack web application for tracking job applications through every stage of the hiring process. Built as a SoftUni Academy course project.
+A personal, full-stack web application for tracking job applications through every stage of the hiring process. Built as a SoftUni course project.
 
 ---
 
 ## Features
 
+- **Google login** — sign in with your Google account; all data is scoped to your account and persists across sessions
 - **Application management** — create, view, edit, and delete applications; track company, role, URL, dates, and status
 - **Status workflow** — Applied → Phone Screen → Interview → Technical Test → Offer → Rejected / Withdrawn
 - **Search & filter** — global command-palette search (Ctrl+K) with live results and status filter chips
@@ -22,6 +23,7 @@ A personal, full-stack web application for tracking job applications through eve
 | Layer | Technology |
 |---|---|
 | Backend | Java 21, Spring Boot 3.3.4, Spring Data JPA, PostgreSQL |
+| Auth | Spring Security 6, OAuth2 Client (Google OIDC) |
 | Build | Maven wrapper |
 | Frontend | React 18, TypeScript, Vite 5 |
 | Styling | Tailwind CSS v4 |
@@ -38,10 +40,11 @@ A personal, full-stack web application for tracking job applications through eve
 - Java 21+, Maven (wrapper included)
 - PostgreSQL 15+
 - Node.js 18+, npm 9+
+- A Google Cloud project with an OAuth 2.0 Client ID ([instructions below](#google-oauth-setup))
 
 ### 1. Clone
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Predrag999/JobApplicationTracker.git
 cd JobApplicationTracker
 ```
 
@@ -52,19 +55,41 @@ CREATE DATABASE job_tracker;
 
 ### 3. Configure the backend
 
-Edit `backend/src/main/resources/application.properties`:
+Edit `backend/src/main/resources/application.properties` and set your database password:
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5433/job_tracker
 spring.datasource.username=postgres
 spring.datasource.password=your_password
-
-app.file.upload-dir=./uploads
-server.port=8080
-
-spring.main.lazy-initialization=true
 ```
 
-### 4. Set the Anthropic API key *(required for AI note generation)*
+Everything else (ports, file storage, OAuth endpoints) is already configured. Do **not** put secrets directly in this file — use environment variables instead (see steps 4 and 5).
+
+### 4. Google OAuth setup
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/) → **APIs & Services** → **Credentials**
+2. Click **Create Credentials** → **OAuth 2.0 Client ID** → Application type: **Web application**
+3. Under **Authorized redirect URIs** add exactly:
+   ```
+   http://localhost:8080/login/oauth2/code/google
+   ```
+4. Copy the **Client ID** and **Client Secret**
+
+Set them as environment variables in the terminal you will use to start the backend:
+
+```powershell
+# Windows PowerShell
+$env:GOOGLE_CLIENT_ID     = "your-client-id.apps.googleusercontent.com"
+$env:GOOGLE_CLIENT_SECRET = "your-client-secret"
+```
+```bash
+# macOS / Linux
+export GOOGLE_CLIENT_ID="your-client-id.apps.googleusercontent.com"
+export GOOGLE_CLIENT_SECRET="your-client-secret"
+```
+
+> **Security note:** Never paste credentials into `application.properties` or commit them to version control. The app reads them from environment variables only.
+
+### 5. Set the Anthropic API key *(required for AI note generation)*
 
 ```powershell
 # Windows PowerShell
@@ -75,11 +100,11 @@ $env:ANTHROPIC_API_KEY = "sk-ant-..."
 export ANTHROPIC_API_KEY="sk-ant-..."
 ```
 
-> Must be set in the **same terminal session** before starting the backend. Without it, the rest of the app works normally but the **Generate with AI** button returns a "not configured" error.
+> Must be set in the **same terminal session** as the backend. Without it, the rest of the app works normally but the **Generate with AI** button returns a "not configured" error.
 >
 > Get a key at [console.anthropic.com](https://console.anthropic.com/). Each click costs ≈ $0.0003 using Claude Haiku.
 
-### 5. Start the backend
+### 6. Start the backend
 ```bash
 cd backend
 ./mvnw spring-boot:run        # macOS / Linux
@@ -87,7 +112,7 @@ mvnw.cmd spring-boot:run      # Windows
 ```
 API available at `http://localhost:8080`. Hibernate auto-creates all tables on first run.
 
-### 6. Start the frontend
+### 7. Start the frontend
 ```bash
 cd frontend
 npm install
@@ -95,11 +120,21 @@ npm run dev
 ```
 App available at `http://localhost:5173`.
 
+Open the URL, click **Continue with Google**, and sign in. Your applications are stored under your Google account and will be waiting the next time you log in.
+
 ---
 
 ## API Reference
 
-All endpoints are prefixed with `/api`.
+All endpoints are prefixed with `/api`. All application/notes/attachments/stats endpoints require an active session (cookie set after Google login). Unauthenticated requests receive `401`.
+
+### Authentication
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/auth/me` | Returns the current user (`id`, `email`, `name`, `pictureUrl`), or `401` if not logged in |
+| `POST` | `/auth/logout` | Invalidates the server session and clears the session cookie |
+
+Login is initiated by navigating the browser to `http://localhost:8080/oauth2/authorization/google` (the frontend login button does this automatically).
 
 ### Applications
 | Method | Endpoint | Description |
@@ -130,13 +165,12 @@ All endpoints are prefixed with `/api`.
 ### Statistics
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/stats` | Totals and counts by status |
+| `GET` | `/stats` | Totals and counts by status for the logged-in user |
 
 ---
 
 ## Known Limitations
 
-- No authentication — single-user local use only.
 - Files are stored on the local filesystem; no cloud storage.
 - No deadline notifications — deadline date is stored but not acted on.
 - No status history — only the current status is tracked.
