@@ -5,7 +5,6 @@ import com.jobtracker.entity.Note;
 import com.jobtracker.repository.ApplicationRepository;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +15,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,12 +30,12 @@ public class ExportService {
     }
 
     @Transactional(readOnly = true)
-    public byte[] export(String format) {
+    public byte[] export(String format, UUID userId) {
         if (!format.equals("csv") && !format.equals("xlsx")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "Unsupported format '" + format + "'. Use 'csv' or 'xlsx'.");
         }
-        List<JobApplication> apps = applicationRepository.findAll(Sort.by("appliedDate").descending());
+        List<JobApplication> apps = applicationRepository.findByUser_IdOrderByAppliedDateDesc(userId);
         return format.equals("xlsx") ? toExcel(apps) : toCsv(apps);
     }
 

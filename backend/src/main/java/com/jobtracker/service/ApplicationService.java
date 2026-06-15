@@ -8,9 +8,11 @@ import com.jobtracker.dto.response.ApplicationResponse;
 import com.jobtracker.dto.response.AutofillResponse;
 import com.jobtracker.dto.response.PagedResponse;
 import com.jobtracker.entity.JobApplication;
+import com.jobtracker.entity.User;
 import com.jobtracker.enums.ApplicationStatus;
 import com.jobtracker.exception.ResourceNotFoundException;
 import com.jobtracker.repository.ApplicationRepository;
+import com.jobtracker.repository.UserRepository;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
@@ -40,20 +42,23 @@ public class ApplicationService {
     private static final ObjectMapper JSON = new ObjectMapper();
 
     private final ApplicationRepository applicationRepository;
+    private final UserRepository userRepository;
 
-    public ApplicationService(ApplicationRepository applicationRepository) {
+    public ApplicationService(ApplicationRepository applicationRepository, UserRepository userRepository) {
         this.applicationRepository = applicationRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional(readOnly = true)
     public PagedResponse<ApplicationResponse> findAll(
+            UUID userId,
             ApplicationStatus status, String search,
             int page, int size, String sortBy, String sortDir) {
         Sort sort = sortDir.equalsIgnoreCase("asc")
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
         Page<JobApplication> result = applicationRepository.findAllFiltered(
-                status, search, PageRequest.of(page, size, sort));
+                userId, status, search, PageRequest.of(page, size, sort));
         return new PagedResponse<>(
                 result.getContent().stream().map(this::toResponse).toList(),
                 result.getNumber(),
@@ -65,12 +70,15 @@ public class ApplicationService {
     }
 
     @Transactional(readOnly = true)
-    public ApplicationResponse findById(UUID id) {
-        return toResponse(getOrThrow(id));
+    public ApplicationResponse findById(UUID id, UUID userId) {
+        return toResponse(getOrThrow(id, userId));
     }
 
-    public ApplicationResponse create(CreateApplicationRequest req) {
+    public ApplicationResponse create(CreateApplicationRequest req, UUID userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
         JobApplication app = new JobApplication();
+        app.setUser(user);
         app.setCompanyName(req.companyName());
         app.setJobTitle(req.jobTitle());
         app.setJobUrl(req.jobUrl());
@@ -80,8 +88,8 @@ public class ApplicationService {
         return toResponse(applicationRepository.save(app));
     }
 
-    public ApplicationResponse update(UUID id, UpdateApplicationRequest req) {
-        JobApplication app = getOrThrow(id);
+    public ApplicationResponse update(UUID id, UpdateApplicationRequest req, UUID userId) {
+        JobApplication app = getOrThrow(id, userId);
         app.setCompanyName(req.companyName());
         app.setJobTitle(req.jobTitle());
         app.setJobUrl(req.jobUrl());
@@ -91,8 +99,8 @@ public class ApplicationService {
         return toResponse(applicationRepository.save(app));
     }
 
-    public void delete(UUID id) {
-        applicationRepository.delete(getOrThrow(id));
+    public void delete(UUID id, UUID userId) {
+        applicationRepository.delete(getOrThrow(id, userId));
     }
 
     public AutofillResponse autofill(String url) {
@@ -382,9 +390,13 @@ public class ApplicationService {
         }
     }
 
-    JobApplication getOrThrow(UUID id) {
-        return applicationRepository.findById(id)
+    JobApplication getOrThrow(UUID id, UUID userId) {
+        JobApplication app = applicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Application not found: " + id));
+        if (app.getUser() == null || !app.getUser().getId().equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+        }
+        return app;
     }
 
     private ApplicationResponse toResponse(JobApplication app) {

@@ -2,12 +2,14 @@ package com.jobtracker.controller;
 
 import com.jobtracker.dto.response.AttachmentResponse;
 import com.jobtracker.entity.Attachment;
+import com.jobtracker.security.CustomOAuth2User;
 import com.jobtracker.service.AttachmentService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,20 +27,27 @@ public class AttachmentController {
     }
 
     @GetMapping("/api/applications/{applicationId}/attachments")
-    public List<AttachmentResponse> list(@PathVariable UUID applicationId) {
-        return attachmentService.findByApplicationId(applicationId);
+    public List<AttachmentResponse> list(
+            @AuthenticationPrincipal CustomOAuth2User principal,
+            @PathVariable UUID applicationId) {
+        return attachmentService.findByApplicationId(applicationId, principal.getUserId());
     }
 
     @PostMapping("/api/applications/{applicationId}/attachments")
-    public ResponseEntity<AttachmentResponse> upload(@PathVariable UUID applicationId,
-                                                      @RequestParam("file") MultipartFile file) throws IOException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(attachmentService.upload(applicationId, file));
+    public ResponseEntity<AttachmentResponse> upload(
+            @AuthenticationPrincipal CustomOAuth2User principal,
+            @PathVariable UUID applicationId,
+            @RequestParam("file") MultipartFile file) throws IOException {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(attachmentService.upload(applicationId, principal.getUserId(), file));
     }
 
     @GetMapping("/api/attachments/{attachmentId}/download")
-    public ResponseEntity<Resource> download(@PathVariable UUID attachmentId) throws IOException {
+    public ResponseEntity<Resource> download(
+            @AuthenticationPrincipal CustomOAuth2User principal,
+            @PathVariable UUID attachmentId) throws IOException {
         Attachment attachment = attachmentService.getOrThrow(attachmentId);
-        Resource resource = attachmentService.download(attachmentId);
+        Resource resource = attachmentService.download(attachmentId, principal.getUserId());
         String contentType = attachment.getContentType() != null
                 ? attachment.getContentType()
                 : "application/octet-stream";
@@ -50,8 +59,10 @@ public class AttachmentController {
     }
 
     @DeleteMapping("/api/attachments/{attachmentId}")
-    public ResponseEntity<Void> delete(@PathVariable UUID attachmentId) throws IOException {
-        attachmentService.delete(attachmentId);
+    public ResponseEntity<Void> delete(
+            @AuthenticationPrincipal CustomOAuth2User principal,
+            @PathVariable UUID attachmentId) throws IOException {
+        attachmentService.delete(attachmentId, principal.getUserId());
         return ResponseEntity.noContent().build();
     }
 }

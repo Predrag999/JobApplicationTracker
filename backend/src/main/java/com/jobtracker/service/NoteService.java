@@ -24,21 +24,21 @@ public class NoteService {
     }
 
     @Transactional(readOnly = true)
-    public List<NoteResponse> findByApplicationId(UUID applicationId) {
-        applicationService.getOrThrow(applicationId);
+    public List<NoteResponse> findByApplicationId(UUID applicationId, UUID userId) {
+        applicationService.getOrThrow(applicationId, userId);
         return noteRepository.findByJobApplicationIdOrderByCreatedAtDesc(applicationId)
                 .stream().map(this::toResponse).toList();
     }
 
-    public NoteResponse create(UUID applicationId, CreateNoteRequest req) {
+    public NoteResponse create(UUID applicationId, CreateNoteRequest req, UUID userId) {
         Note note = new Note();
-        note.setJobApplication(applicationService.getOrThrow(applicationId));
+        note.setJobApplication(applicationService.getOrThrow(applicationId, userId));
         note.setContent(req.content());
         return toResponse(noteRepository.save(note));
     }
 
-    public void delete(UUID applicationId, UUID noteId) {
-        applicationService.getOrThrow(applicationId);
+    public void delete(UUID applicationId, UUID noteId, UUID userId) {
+        applicationService.getOrThrow(applicationId, userId);
         Note note = noteRepository.findById(noteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note not found: " + noteId));
         noteRepository.delete(note);

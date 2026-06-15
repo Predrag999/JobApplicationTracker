@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { LayoutDashboard, ListTodo, PlusCircle, Briefcase, Download, FileDown } from 'lucide-react'
+import { LayoutDashboard, ListTodo, PlusCircle, Briefcase, Download, FileDown, LogOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import ThemeToggle from '@/components/ThemeToggle'
 import SearchModal from '@/components/SearchModal'
 import SettingsModal from '@/components/SettingsModal'
 import { useModal } from '@/context/ModalContext'
+import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { downloadExport } from '@/api/applications'
 
 export default function Layout() {
   const { t } = useTranslation()
   const { isSearchOpen, openSearch, closeSearch } = useModal()
+  const { user, logout } = useAuth()
   const [exportOpen, setExportOpen] = useState(false)
   const [exportError, setExportError] = useState(false)
   const exportRef = useRef<HTMLDivElement>(null)
@@ -71,8 +73,36 @@ export default function Layout() {
             </NavLink>
           ))}
         </nav>
-        <div className="px-3 py-4 border-t">
-          <ThemeToggle />
+        <div className="px-3 py-4 border-t space-y-3">
+          {user && (
+            <div className="flex items-center gap-2 px-1 min-w-0">
+              {user.pictureUrl ? (
+                <img
+                  src={user.pictureUrl}
+                  alt=""
+                  referrerPolicy="no-referrer"
+                  className="h-7 w-7 rounded-full shrink-0"
+                />
+              ) : (
+                <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-semibold text-primary shrink-0">
+                  {user.name?.[0]?.toUpperCase() ?? '?'}
+                </div>
+              )}
+              <span className="text-xs font-medium truncate">{user.name}</span>
+            </div>
+          )}
+          <div className="flex items-center justify-between">
+            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={logout}
+              title={t('auth.logout')}
+              className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </aside>
       <main className="flex-1 overflow-auto">

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,9 +21,11 @@ public class StatsService {
         this.applicationRepository = applicationRepository;
     }
 
-    public StatsResponse getStats() {
+    public StatsResponse getStats(UUID userId) {
         Map<String, Long> byStatus = Arrays.stream(ApplicationStatus.values())
-                .collect(Collectors.toMap(Enum::name, applicationRepository::countByStatus));
+                .collect(Collectors.toMap(
+                        Enum::name,
+                        s -> applicationRepository.countByStatusAndUser_Id(s, userId)));
 
         long total = byStatus.values().stream().mapToLong(Long::longValue).sum();
         long rejectedCount = byStatus.getOrDefault(ApplicationStatus.REJECTED.name(), 0L);

@@ -1,7 +1,9 @@
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\config\CorsConfig.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\config\FileStorageConfig.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\config\SecurityConfig.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\controller\ApplicationController.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\controller\AttachmentController.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\controller\AuthController.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\controller\NoteController.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\controller\StatsController.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\request\CreateApplicationRequest.java
@@ -14,9 +16,11 @@ C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\NoteResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\PagedResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\StatsResponse.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\dto\response\UserResponse.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\entity\Attachment.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\entity\JobApplication.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\entity\Note.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\entity\User.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\enums\ApplicationStatus.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\exception\GlobalExceptionHandler.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\exception\ResourceNotFoundException.java
@@ -24,8 +28,12 @@ C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\repository\ApplicationRepository.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\repository\AttachmentRepository.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\repository\NoteRepository.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\repository\UserRepository.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\security\CustomOAuth2User.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\ApplicationService.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\AttachmentService.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\CustomOAuth2UserService.java
+C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\CustomOidcUserService.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\ExportService.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\GenerateNoteService.java
 C:\AI-AssistanceSoftUniWorkSpace\JobApplicationTracker\backend\src\main\java\com\jobtracker\service\NoteService.java

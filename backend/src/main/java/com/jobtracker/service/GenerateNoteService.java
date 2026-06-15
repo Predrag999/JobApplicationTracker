@@ -38,12 +38,12 @@ public class GenerateNoteService {
         this.applicationService = applicationService;
     }
 
-    public GeneratedNoteResponse generate(UUID applicationId) {
+    public GeneratedNoteResponse generate(UUID applicationId, UUID userId) {
         if (apiKey == null || apiKey.isBlank()) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE,
                     "AI generation is not configured. Set the ANTHROPIC_API_KEY environment variable.");
         }
-        JobApplication app = applicationService.getOrThrow(applicationId);
+        JobApplication app = applicationService.getOrThrow(applicationId, userId);
         String jobUrl = app.getJobUrl();
         if (jobUrl == null || jobUrl.isBlank()) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,

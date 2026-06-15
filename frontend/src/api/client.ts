@@ -6,6 +6,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
       'Content-Type': 'application/json',
       ...options?.headers,
     },
+    credentials: 'include',
     ...options,
   })
 
@@ -19,7 +20,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 async function downloadBlob(path: string): Promise<Blob> {
-  const response = await fetch(`${BASE_URL}${path}`)
+  const response = await fetch(`${BASE_URL}${path}`, { credentials: 'include' })
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: response.statusText }))
     throw new Error((error as { message?: string }).message ?? 'Request failed')
@@ -30,6 +31,7 @@ async function downloadBlob(path: string): Promise<Blob> {
 async function upload<T>(path: string, formData: FormData): Promise<T> {
   const response = await fetch(`${BASE_URL}${path}`, {
     method: 'POST',
+    credentials: 'include',
     body: formData,
   })
 

@@ -1,7 +1,9 @@
 package com.jobtracker.controller;
 
 import com.jobtracker.dto.response.StatsResponse;
+import com.jobtracker.security.CustomOAuth2User;
 import com.jobtracker.service.StatsService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +19,7 @@ public class StatsController {
     }
 
     @GetMapping
-    public StatsResponse getStats() {
-        return statsService.getStats();
+    public StatsResponse getStats(@AuthenticationPrincipal CustomOAuth2User principal) {
+        return statsService.getStats(principal.getUserId());
     }
 }

@@ -43,6 +43,10 @@ public class JobApplication {
     @UpdateTimestamp
     private Instant updatedAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(mappedBy = "jobApplication", cascade = CascadeType.ALL, orphanRemoval = true)
     @BatchSize(size = 25)
     private List<Note> notes = new ArrayList<>();
@@ -52,6 +56,9 @@ public class JobApplication {
     private List<Attachment> attachments = new ArrayList<>();
 
     public JobApplication() {}
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }

@@ -122,6 +122,17 @@ const en = {
     excel: 'Export as Excel',
     error: 'Export failed. Is the backend running?',
   },
+  login: {
+    tagline: 'Track your job search journey in one place',
+    welcome: 'Welcome back',
+    subtitle: 'Sign in to access your applications',
+    continueWithGoogle: 'Continue with Google',
+    error: 'Sign-in failed. Please try again.',
+    footer: 'Your data is stored locally and tied to your Google account.',
+  },
+  auth: {
+    logout: 'Sign out',
+  },
   themeToggle: {
     lightMode: 'Light mode',
     darkMode: 'Dark mode',
