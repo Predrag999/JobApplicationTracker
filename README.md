@@ -14,6 +14,7 @@ A personal, full-stack web application for tracking job applications through eve
 - **URL Autofill** — paste a job listing URL to auto-extract company name and job title (JSON-LD → OpenGraph → CSS selectors → Playwright headless fallback for JS-rendered pages; detects bot protection and prompts manual entry)
 - **File attachments** — upload resumes, cover letters, etc. (10 MB limit); stored on the local filesystem
 - **Dashboard** — overview cards and a status breakdown pie chart
+- **Export data** — download all your applications as a **CSV** or **Excel (.xlsx)** file via the Export Data button
 - **Theme & language** — light/dark toggle and English/Bulgarian switch, both persisted in `localStorage`
 
 ---
